@@ -177,8 +177,8 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Ahmad Munab. All rights reserved.
           </p>
           <p className="text-foreground/60 text-sm flex items-center gap-1">
-            Made with <FaHeart className="text-red-500" size={12} /> using
-            Next.js & Tailwind CSS
+            Made with <FaHeart className="text-red-500" size={12} /> By Munab :
+            )
           </p>
         </div>
       </div>

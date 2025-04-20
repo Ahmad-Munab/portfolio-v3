@@ -22,10 +22,12 @@ export function HeroSection() {
               boxShadow: "0 0 15px rgba(59, 130, 246, 0.5)",
             }}
           >
-            <div className="rounded-full bg-foreground/10 p-4">
-              <div className="rounded-full bg-background p-2">
-                <div className="text-3xl font-bold">AM</div>
-              </div>
+            <div className="rounded-full overflow-hidden w-32 h-32">
+              <img
+                src="/Picture.jpg"
+                alt="Profile Picture"
+                className="w-full h-full object-cover"
+              />
             </div>
           </motion.div>
 
@@ -55,7 +57,7 @@ export function HeroSection() {
           >
             <motion.a
               className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-primary text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-              href="/Ahmad Munab - Resume.pdf"
+              href="/Resume.pdf"
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

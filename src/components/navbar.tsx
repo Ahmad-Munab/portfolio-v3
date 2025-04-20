@@ -99,7 +99,7 @@ export function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="/Ahmad Munab - Resume.pdf"
+              href="/Resume.pdf"
               download
               className="bg-primary text-white px-4 py-2 rounded-full hover:bg-primary/90 transition-colors flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
@@ -150,7 +150,7 @@ export function Navbar() {
                 </motion.a>
               ))}
               <motion.a
-                href="/Ahmad Munab - Resume.pdf"
+                href="/Resume.pdf"
                 download
                 className="bg-primary text-white mt-2 px-4 py-3 rounded-lg hover:bg-primary/90 transition-colors text-center flex items-center justify-center gap-2"
                 onClick={() => setIsMobileMenuOpen(false)}
