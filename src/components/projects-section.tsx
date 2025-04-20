@@ -19,7 +19,7 @@ export function ProjectsSection() {
           </h2>
           <div className="h-1 w-20 bg-primary rounded-full mt-4"></div>
           <p className="text-foreground/70 mt-4 max-w-[700px]">
-            Here are some of the projects I've worked on. Each project
+            Here are some of the projects I&apos;ve worked on. Each project
             represents different skills and technologies.
           </p>
         </motion.div>

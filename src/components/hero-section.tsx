@@ -1,6 +1,7 @@
 import { about } from "@/data/portfolio";
 import { FaRegFileCode, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export function HeroSection() {
   return (
@@ -23,10 +24,12 @@ export function HeroSection() {
             }}
           >
             <div className="rounded-full overflow-hidden w-32 h-32">
-              <img
+              <Image
                 src="/Picture.jpg"
                 alt="Profile Picture"
                 className="w-full h-full object-cover"
+                width={128}
+                height={128}
               />
             </div>
           </motion.div>
