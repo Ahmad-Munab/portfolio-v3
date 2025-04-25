@@ -43,68 +43,53 @@ const skillIcons: Record<string, JSX.Element> = {
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="py-16">
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
-          className="flex flex-col items-center text-center mb-12"
+          className="flex flex-col items-center text-center mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            My Skills
-          </h2>
-          <div className="h-1 w-20 bg-primary rounded-full mt-4"></div>
-          <p className="text-foreground/70 mt-4 max-w-[700px]">
-            Here are the technologies and tools I work with
-          </p>
+          <h2 className="text-2xl font-bold tracking-tighter">Skills</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="max-w-3xl mx-auto">
           {skills.map((skillGroup, groupIndex) => (
             <motion.div
               key={skillGroup.category}
-              className="bg-foreground/5 p-6 rounded-lg border border-foreground/10"
-              initial={{ opacity: 0, y: 20 }}
+              className="mb-6"
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 * groupIndex }}
-              whileHover={{
-                boxShadow:
-                  "0 10px 25px -5px rgba(59, 130, 246, 0.1), 0 8px 10px -6px rgba(59, 130, 246, 0.1)",
-                borderColor: "rgba(59, 130, 246, 0.3)",
-              }}
+              transition={{ duration: 0.3, delay: 0.1 * groupIndex }}
             >
-              <h3 className="text-xl font-bold mb-4 flex items-center">
-                <span className="bg-primary/10 text-primary p-2 rounded-full mr-2">
-                  {getCategoryIcon(skillGroup.category)}
-                </span>
+              <h3 className="text-lg font-medium mb-3">
                 {skillGroup.category}
               </h3>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="flex flex-wrap gap-2">
                 {skillGroup.items.map((skill, index) => (
                   <motion.div
                     key={skill}
-                    className="flex items-center gap-2 bg-background p-3 rounded-lg border border-foreground/5"
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    className="flex items-center gap-2 border border-foreground/10 px-3 py-2 rounded-md"
+                    initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.3,
-                      delay: 0.05 * index + 0.1 * groupIndex,
+                      duration: 0.2,
+                      delay: 0.03 * index + 0.1 * groupIndex,
                     }}
                     whileHover={{
-                      scale: 1.05,
-                      backgroundColor: "rgba(59, 130, 246, 0.05)",
-                      borderColor: "rgba(59, 130, 246, 0.2)",
+                      y: -2,
+                      borderColor: "rgba(0, 0, 0, 0.2)",
                     }}
                   >
-                    <span className="text-xl">
+                    <span className="text-base">
                       {skillIcons[skill] || skill.charAt(0)}
                     </span>
-                    <span className="font-medium">{skill}</span>
+                    <span className="text-sm">{skill}</span>
                   </motion.div>
                 ))}
               </div>

@@ -5,14 +5,62 @@ import { AboutSection } from "@/components/about-section";
 import { SkillsSection } from "@/components/skills-section";
 import { ExperienceSection } from "@/components/experience-section";
 import { ProjectsSection } from "@/components/projects-section";
-import { ContactSection } from "@/components/contact-section";
-import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [stars, setStars] = useState<
+    {
+      id: number;
+      size: number;
+      left: string;
+      top: string;
+      duration: string;
+      delay: string;
+      opacity: string;
+      distance: string;
+    }[]
+  >([]);
+
+  useEffect(() => {
+    // Create stars for the background
+    const starsArray = Array.from({ length: 100 }, (_, i) => ({
+      id: i,
+      size: Math.random() * 3 + 1,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      duration: `${Math.random() * 8 + 4}s`,
+      delay: `${Math.random() * 5}s`,
+      opacity: `${Math.random() * 0.7 + 0.3}`,
+      distance: `${Math.random() * 150 + 50}px`,
+    }));
+    setStars(starsArray);
+  }, []);
+
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
-      <Navbar />
+      {/* Stars background */}
+      <div className="stars-container">
+        {stars.map((star) => (
+          <div
+            key={star.id}
+            className="star"
+            style={
+              {
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                left: star.left,
+                top: star.top,
+                "--duration": star.duration,
+                "--delay": star.delay,
+                "--opacity": star.opacity,
+                "--distance": star.distance,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
+
       <main>
         <section id="home">
           <HeroSection />
@@ -23,7 +71,6 @@ export default function Home() {
         </section>
         <ExperienceSection />
         <ProjectsSection />
-        <ContactSection />
       </main>
       <Footer />
     </div>

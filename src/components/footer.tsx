@@ -1,30 +1,20 @@
 import { about } from "@/data/portfolio";
-import {
-  FaLinkedin,
-  FaGithub,
-  FaEnvelope,
-  FaHeart,
-  FaArrowUp,
-} from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaEnvelope, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <footer className="bg-foreground/5 pt-16 pb-8 relative">
-      <div className="container mx-auto px-4 md:px-6 ">
+    <footer className="py-12 relative">
+      <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between mb-6">
           <motion.h2
-            className="text-2xl font-bold flex items-center"
+            className="text-xl font-bold flex items-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Ahmad<span className="text-primary">.</span>
+            Ahmad<span className="text-[#3b82f6]">.</span>
           </motion.h2>
 
           <motion.div
@@ -38,40 +28,39 @@ export function Footer() {
               href={about.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-foreground/5 p-2 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
-              whileHover={{ y: -3 }}
+              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
-              <FaLinkedin size={18} />
+              <FaLinkedin size={16} />
             </motion.a>
             <motion.a
               href={about.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-foreground/5 p-2 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
-              whileHover={{ y: -3 }}
+              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
-              <FaGithub size={18} />
+              <FaGithub size={16} />
             </motion.a>
             <motion.a
               href={`mailto:${about.email}`}
-              className="bg-foreground/5 p-2 rounded-full hover:bg-primary/10 hover:text-primary transition-colors"
-              whileHover={{ y: -3 }}
+              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
-              <FaEnvelope size={18} />
+              <FaEnvelope size={16} />
             </motion.a>
           </motion.div>
         </div>
 
-        <div className="border-t border-foreground/10 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-foreground/60 text-sm mb-4 md:mb-0">
+        <div className="border-t border-foreground/10 pt-4 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-foreground/60 text-xs mb-2 md:mb-0">
             &copy; {new Date().getFullYear()} Ahmad Munab. All rights reserved.
           </p>
-          <p className="text-foreground/60 text-sm flex items-center gap-1">
-            Made with <FaHeart className="text-red-500" size={12} /> By Munab :
-            )
+          <p className="text-foreground/60 text-xs flex items-center gap-1">
+            Made with <FaHeart className="text-red-500" size={10} /> By Munab
           </p>
         </div>
       </div>
