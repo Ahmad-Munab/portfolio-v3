@@ -44,7 +44,8 @@ export function AboutSection() {
                 <h4 className="text-base font-medium mb-2">Personal</h4>
                 <p className="text-foreground/70 text-sm">
                   Passionate about building scalable and resilient systems with
-                  a focus on great user experiences.
+                  a focus on great user experiences. Utilizing AI to ship
+                  solutions in light speed!
                 </p>
               </div>
 

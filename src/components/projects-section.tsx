@@ -1,7 +1,6 @@
 import { projects } from "@/data/portfolio";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 
 export function ProjectsSection() {
   return (
@@ -24,7 +23,7 @@ export function ProjectsSection() {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative p-2 overflow-hidden rounded-xl border border-foreground/10 bg-background cursor-pointer hover:border-foreground/20 transition-colors"
+              className="group relative p-2 overflow-hidden rounded-xl border border-foreground/10 bg-background cursor-pointer hover:border-foreground/20 transition-all"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

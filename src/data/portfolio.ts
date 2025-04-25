@@ -1,55 +1,66 @@
-import { 
-  SiNextdotjs, 
-  SiTailwindcss, 
-  SiMysql, 
-  SiPostgresql, 
-  SiFramer, 
-  SiOpenai, 
-  SiReact, 
-  SiNodedotjs, 
-  SiExpress, 
-  SiMongodb, 
-  SiPython, 
-  SiFastapi, 
-  SiSupabase
+import { RiRobot2Line } from "react-icons/ri";
+import { LuComponent } from "react-icons/lu";
+import { MdAnimation } from "react-icons/md";
+import {
+  SiNextdotjs,
+  SiTailwindcss,
+  SiMysql,
+  SiPostgresql,
+  SiFramer,
+  SiOpenai,
+  SiReact,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiPython,
+  SiFastapi,
+  SiSupabase,
+  SiShadcnui,
+  SiJavascript,
+  SiTypescript,
+  SiBootstrap,
+  SiDocker,
+  SiCloudflare,
+  SiGit,
+  SiGithub
 } from "react-icons/si";
 
 export const projects = [
-  { 
-    title: "ProjectMate", 
-    url: "https://project-mate-develop.vercel.app", 
-    image: "/project-images/project-mate.png", 
+  {
+    title: "ProjectMate",
+    url: "https://project-mate-develop.vercel.app",
+    image: "/project-images/project-mate.png",
     description: "An AI Powered platform for project management and collaboration",
-    tech: [SiNextdotjs, SiSupabase, SiPostgresql], 
-  }, 
-  { 
-    title: "PromoBars", 
-    url: "https://promo-bars.vercel.app", 
-    image: "/project-images/promo-bars.png", 
+    tech: [SiNextdotjs, SiSupabase, SiPostgresql, RiRobot2Line],
+  },
+  {
+    title: "PromoBars",
+    url: "https://promo-bars.vercel.app",
+    image: "/project-images/promo-bars.png",
     description: "A customizable promotion bar solution for e-commerce websites",
-    tech: [SiNextdotjs, SiTailwindcss, SiMysql], 
-  }, 
-  { 
-    title: "Nano Link", 
-    url: "https://nano-link.vercel.app", 
-    image: "/project-images/nano-link.png", 
+    tech: [SiNextdotjs, SiTailwindcss, SiShadcnui],
+  },
+  {
+    title: "Nano Link",
+    url: "https://nano-link.vercel.app",
+    image: "/project-images/nano-link.png",
     description: "URL shortener with analytics and custom links",
-    tech: [SiNextdotjs, SiTailwindcss, SiPostgresql], 
-  }, 
-  { 
-    title: "Munab AI", 
-    url: "https://munab-ai.vercel.app", 
-    image: "/project-images/munab-ai.png", 
+    tech: [SiNextdotjs, SiTailwindcss, SiShadcnui, SiPostgresql],
+  },
+  {
+    title: "Munab AI",
+    url: "https://munab-ai.vercel.app",
+    image: "/project-images/munab-ai.png",
     description: "AI-powered assistant for developers and content creators",
-    tech: [SiNextdotjs, SiTailwindcss, SiOpenai], 
-  }, 
-  { 
-    title: "Munab Portfolio-v2", 
-    url: "https://munab-v2.vercel.app", 
-    image: "/project-images/portfolio-v2.png", 
+    tech: [SiNextdotjs, SiTailwindcss, SiOpenai],
+  },
+  {
+    title: "Munab Portfolio-v2",
+    url: "https://munab-v2.vercel.app",
+    image: "/project-images/portfolio-v2.png",
     description: "Second iteration with improved design and animations",
-    tech: [SiNextdotjs, SiTailwindcss, SiFramer], 
-  }, 
+    tech: [SiNextdotjs, SiTailwindcss, SiFramer],
+  },
 ];
 
 export const experiences = [
@@ -83,36 +94,64 @@ export const experiences = [
     description: [
       "Worked with various clients and companies globally.",
       "Built and collaborated on platforms like pranerbangla.com, Muse, etc.",
-      "Real-world project experience with teams in Bangladesh."
+      "Real-world project experience with teams in Bangladesh.",
+      "Utilized PostgreSQL for database management in several projects."
     ],
-    tech: [SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb]
+    tech: [SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb, SiPostgresql]
   }
 ];
 
 export const skills = [
   {
     category: "Languages",
-    items: ["JavaScript", "TypeScript", "Python"]
+    items: [
+      { name: "JavaScript", icon: SiJavascript },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "Python", icon: SiPython }
+    ]
   },
   {
     category: "Frontend",
-    items: ["Next.js", "React.js", "Tailwind CSS", "Bootstrap"]
+    items: [
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "React.js", icon: SiReact },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "Bootstrap", icon: SiBootstrap },
+      { name: "shadcn UI", icon: LuComponent },
+      { name: "Aceternity UI", icon: MdAnimation }
+    ]
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express.js", "FastAPI"]
+    items: [
+      { name: "Node.js", icon: SiNodedotjs },
+      { name: "Express.js", icon: SiExpress },
+      { name: "FastAPI", icon: SiFastapi }
+    ]
   },
   {
     category: "Database",
-    items: ["MongoDB", "PostgreSQL"]
+    items: [
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "MySQL", icon: SiMysql }
+    ]
   },
   {
     category: "DevOps & Tools",
-    items: ["Docker", "Cloudflare", "Git", "GitHub"]
+    items: [
+      { name: "Docker", icon: SiDocker },
+      { name: "Cloudflare", icon: SiCloudflare },
+      { name: "Git", icon: SiGit },
+      { name: "GitHub", icon: SiGithub }
+    ]
   },
   {
     category: "AI",
-    items: ["Groq"]
+    items: [
+      { name: "Groq", icon: RiRobot2Line },
+      { name: "OpenAI", icon: SiOpenai }
+    ]
   }
 ];
 
