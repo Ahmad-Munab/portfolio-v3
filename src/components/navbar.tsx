@@ -101,7 +101,7 @@ export function Navbar() {
             <motion.a
               href="/Resume.pdf"
               download
-              className="bg-primary text-white px-4 py-2 rounded-full hover:bg-primary/90 transition-colors flex items-center gap-2"
+              className="bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 transition-colors flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
