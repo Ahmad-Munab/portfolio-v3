@@ -8,7 +8,7 @@ export function ProjectsSection() {
     <section id="projects" className="py-16">
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
-          className="flex flex-col items-center text-center mb-8"
+          className="flex flex-col items-start mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -24,7 +24,7 @@ export function ProjectsSection() {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-lg border border-foreground/10 bg-background cursor-pointer"
+              className="group relative p-2 overflow-hidden rounded-xl border border-foreground/10 bg-background cursor-pointer hover:border-foreground/20 transition-colors"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -41,7 +41,7 @@ export function ProjectsSection() {
                   alt={project.title}
                   width={400}
                   height={200}
-                  className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105"
+                  className="w-full h-full object-cover rounded-xl transition-all duration-300 ease-in-out group-hover:scale-[103.5%]"
                 />
                 <div className="absolute inset-0 z-20 flex items-end p-3">
                   <h3 className="text-base font-bold text-white">

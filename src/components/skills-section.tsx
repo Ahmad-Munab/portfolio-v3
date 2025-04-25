@@ -46,7 +46,7 @@ export function SkillsSection() {
     <section id="skills" className="py-16">
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
-          className="flex flex-col items-center text-center mb-8"
+          className="flex flex-col items-start mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -73,7 +73,7 @@ export function SkillsSection() {
                 {skillGroup.items.map((skill, index) => (
                   <motion.div
                     key={skill}
-                    className="flex items-center gap-2 border border-foreground/10 px-3 py-2 rounded-md"
+                    className="flex items-center gap-2 border border-foreground/10 px-3 py-2 rounded-xl"
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}

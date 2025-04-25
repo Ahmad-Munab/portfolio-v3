@@ -45,7 +45,7 @@ export const projects = [
   }, 
   { 
     title: "Munab Portfolio-v2", 
-    url: "https://munab.vercel.app", 
+    url: "https://munab-v2.vercel.app", 
     image: "/project-images/portfolio-v2.png", 
     description: "Second iteration with improved design and animations",
     tech: [SiNextdotjs, SiTailwindcss, SiFramer], 

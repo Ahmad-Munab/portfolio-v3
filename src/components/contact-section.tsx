@@ -7,7 +7,7 @@ export function ContactSection() {
     <section id="contact" className="py-16">
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
-          className="flex flex-col items-center text-center mb-8"
+          className="flex flex-col items-start mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

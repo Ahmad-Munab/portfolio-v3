@@ -23,8 +23,11 @@ export default function Home() {
   >([]);
 
   useEffect(() => {
-    // Create stars for the background
-    const starsArray = Array.from({ length: 100 }, (_, i) => ({
+    const isMobile = window.innerWidth < 768; // md breakpoint in Tailwind
+
+    const starsCount = isMobile ? 100 : 200;
+
+    const starsArray = Array.from({ length: starsCount }, (_, i) => ({
       id: i,
       size: Math.random() * 3 + 1,
       left: `${Math.random() * 100}%`,
@@ -35,6 +38,30 @@ export default function Home() {
       distance: `${Math.random() * 150 + 50}px`,
     }));
     setStars(starsArray);
+
+    const handleResize = () => {
+      const isMobileNow = window.innerWidth < 768;
+      if (
+        (isMobileNow && starsCount !== 200) ||
+        (!isMobileNow && starsCount !== 200)
+      ) {
+        const newStarsCount = isMobileNow ? 200 : 100;
+        const newStarsArray = Array.from({ length: newStarsCount }, (_, i) => ({
+          id: i,
+          size: Math.random() * 3 + 1,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          duration: `${Math.random() * 8 + 4}s`,
+          delay: `${Math.random() * 5}s`,
+          opacity: `${Math.random() * 0.7 + 0.3}`,
+          distance: `${Math.random() * 150 + 50}px`,
+        }));
+        setStars(newStarsArray);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -62,13 +89,9 @@ export default function Home() {
       </div>
 
       <main>
-        <section id="home">
-          <HeroSection />
-        </section>
+        <HeroSection />
         <AboutSection />
-        <section id="skills">
-          <SkillsSection />
-        </section>
+        <SkillsSection />
         <ExperienceSection />
         <ProjectsSection />
       </main>

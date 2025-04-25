@@ -19,12 +19,12 @@ export function HeroSection() {
       >
         <div className="flex flex-col items-center text-center space-y-4">
           <motion.div
-            className="border border-foreground/10 rounded-xl p-6 bg-background/50 backdrop-blur-sm w-full max-w-xl"
+            className="border border-foreground/10 rounded-xl p-6 bg-background/50 backdrop-blur-sm w-full"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
               <div className="rounded-full overflow-hidden w-16 h-16">
                 <Image
                   src="/Picture.jpg"
@@ -34,16 +34,16 @@ export function HeroSection() {
                   height={64}
                 />
               </div>
-              <div className="text-left">
+              <div className="text-center sm:text-left">
                 <h1 className="text-xl font-bold">{about.name}</h1>
                 <p className="text-sm text-foreground/70">{about.title}</p>
               </div>
-              <div className="ml-auto flex gap-3">
+              <div className="mt-4 sm:mt-0 sm:ml-auto flex gap-3">
                 <motion.a
                   href={about.social.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
+                  className="text-foreground/80 hover:text-[#3b82f6] transition-colors"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -53,7 +53,7 @@ export function HeroSection() {
                   href={about.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
+                  className="text-foreground/80 hover:text-[#3b82f6] transition-colors"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -61,7 +61,7 @@ export function HeroSection() {
                 </motion.a>
                 <motion.a
                   href={`mailto:${about.email}`}
-                  className="text-foreground/80 hover:text-foreground transition-colors"
+                  className="text-foreground/80 hover:text-[#3b82f6] transition-colors"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
@@ -70,7 +70,7 @@ export function HeroSection() {
                 <motion.a
                   href="/Resume.pdf"
                   download
-                  className="text-foreground/80 hover:text-foreground transition-colors"
+                  className="text-foreground/80 hover:text-[#3b82f6] transition-colors"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >

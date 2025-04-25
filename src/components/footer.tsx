@@ -1,5 +1,11 @@
 import { about } from "@/data/portfolio";
-import { FaLinkedin, FaGithub, FaEnvelope, FaHeart } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaEnvelope,
+  FaHeart,
+  FaRegFileCode,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export function Footer() {
@@ -18,22 +24,12 @@ export function Footer() {
           </motion.h2>
 
           <motion.div
-            className="flex space-x-4"
+            className="flex gap-3"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <motion.a
-              href={about.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
-            >
-              <FaLinkedin size={16} />
-            </motion.a>
             <motion.a
               href={about.social.github}
               target="_blank"
@@ -45,12 +41,31 @@ export function Footer() {
               <FaGithub size={16} />
             </motion.a>
             <motion.a
+              href={about.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              <FaLinkedin size={16} />
+            </motion.a>
+            <motion.a
               href={`mailto:${about.email}`}
               className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
               <FaEnvelope size={16} />
+            </motion.a>
+            <motion.a
+              href="/Resume.pdf"
+              download
+              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              <FaRegFileCode size={16} />
             </motion.a>
           </motion.div>
         </div>
