@@ -88,12 +88,12 @@ export default function Home() {
         ))}
       </div>
 
-      <main>
+      <main className="lg:py-32 sm:py-24 py-12 lg:space-y-32 sm:space-y-24 space-y-16">
         <HeroSection />
         <AboutSection />
-        <SkillsSection />
         <ExperienceSection />
         <ProjectsSection />
+        <SkillsSection />
       </main>
       <Footer />
     </div>

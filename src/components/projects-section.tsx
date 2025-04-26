@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-16">
+    <section id="projects">
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
           className="flex flex-col items-start mb-8"

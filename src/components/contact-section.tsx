@@ -4,7 +4,7 @@ import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-16">
+    <section id="contact">
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
           className="flex flex-col items-start mb-8"

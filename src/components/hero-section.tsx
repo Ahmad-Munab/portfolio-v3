@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="flex flex-col items-center pt-32 pb-16">
+    <section className="flex flex-col items-center">
       <motion.div
         className="container px-4 md:px-6"
         initial={{ opacity: 0, y: 20 }}

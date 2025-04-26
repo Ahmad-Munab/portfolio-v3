@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16">
+    <section id="about" >
       <div className="container px-4 md:px-6 mx-auto">
         <motion.div
           className="flex flex-col items-start mb-8"
