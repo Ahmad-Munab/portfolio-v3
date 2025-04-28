@@ -88,7 +88,7 @@ export default function Home() {
         ))}
       </div>
 
-      <main className="lg:py-32 sm:py-24 py-12 lg:space-y-32 sm:space-y-24 space-y-16">
+      <main className="lg:py-32 sm:py-24 py-12 lg:space-y-28 sm:space-y-24 space-y-16">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />

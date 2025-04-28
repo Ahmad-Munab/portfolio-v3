@@ -7,6 +7,13 @@ import {
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Cookie } from "next/font/google";
+
+const CookieFont = Cookie({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export function HeroSection() {
   return (
@@ -24,7 +31,7 @@ export function HeroSection() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <div className="rounded-full overflow-hidden w-16 h-16">
                 <Image
                   src="/Picture.jpg"
@@ -34,11 +41,13 @@ export function HeroSection() {
                   height={64}
                 />
               </div>
-              <div className="text-center sm:text-left">
-                <h1 className="text-xl font-bold">{about.name}</h1>
+              <div className="text-center my-auto sm:text-left">
+                <h1 className={cn("text-3xl font-bold", CookieFont.className)}>
+                  {about.name}
+                </h1>
                 <p className="text-sm text-foreground/70">{about.title}</p>
               </div>
-              <div className="mt-4 sm:mt-0 sm:ml-auto flex gap-3">
+              <div className="mt-4 sm:mt-0 sm:ml-auto flex items-center gap-3">
                 <motion.a
                   href={about.social.github}
                   target="_blank"
@@ -70,11 +79,12 @@ export function HeroSection() {
                 <motion.a
                   href="/Resume.pdf"
                   download
-                  className="text-foreground/80 hover:text-[#3b82f6] transition-colors"
+                  className="flex items-center gap-1 px-3 py-1.5 bg-[#2578ff] text-white rounded-xl hover:bg-[#205fe7] transition-colors"
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                 >
-                  <FaRegFileCode size={20} />
+                  <FaRegFileCode size={16} />
+                  <span className="text-xs font-medium">Resume</span>
                 </motion.a>
               </div>
             </div>

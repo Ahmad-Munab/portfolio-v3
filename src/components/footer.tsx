@@ -20,11 +20,11 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Ahmad<span className="text-[#3b82f6]">.</span>
+            Ahmad<span className="text-[#3b82f6] text-2xl">.</span>
           </motion.h2>
 
           <motion.div
-            className="flex gap-3"
+            className="flex items-center gap-3"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -34,7 +34,7 @@ export function Footer() {
               href={about.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              className="rounded-full hover:text-[#3b82f6] transition-colors"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
@@ -44,7 +44,7 @@ export function Footer() {
               href={about.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              className="rounded-full hover:text-[#3b82f6] transition-colors"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
@@ -52,7 +52,7 @@ export function Footer() {
             </motion.a>
             <motion.a
               href={`mailto:${about.email}`}
-              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              className="rounded-full hover:text-[#3b82f6] transition-colors"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
@@ -61,11 +61,12 @@ export function Footer() {
             <motion.a
               href="/Resume.pdf"
               download
-              className="p-2 rounded-full hover:text-[#3b82f6] transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 bg-[#2578ff] text-white rounded-xl hover:bg-[#205fe7] transition-colors"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
             >
               <FaRegFileCode size={16} />
+              <span className="text-xs font-medium">Resume</span>
             </motion.a>
           </motion.div>
         </div>

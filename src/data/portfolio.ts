@@ -27,6 +27,13 @@ import {
 
 export const projects = [
   {
+    title: "AdmitPath",
+    url: "https://admit-path.com",
+    image: "/project-images/admit-path.png",
+    description: "A Marketplace Connecting College Applicants and Counselors",
+    tech: [SiNextdotjs, SiTailwindcss, SiPython, SiFastapi, SiPostgresql, SiSupabase],
+  },
+  {
     title: "ProjectMate",
     url: "https://project-mate-develop.vercel.app",
     image: "/project-images/project-mate.png",
@@ -113,19 +120,19 @@ export const skills = [
   {
     category: "Frontend",
     items: [
-      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
       { name: "React.js", icon: SiReact, color: "#61DAFB" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
-      { name: "shadcn UI", icon: LuComponent, color: "#000000" },
-      { name: "Aceternity UI", icon: MdAnimation, color: "#000000" }
+      { name: "shadcn UI", icon: LuComponent, color: "#FFFFFF" },
+      { name: "Aceternity UI", icon: MdAnimation, color: "#FFFFFF" }
     ]
   },
   {
     category: "Backend",
     items: [
       { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-      { name: "Express.js", icon: SiExpress, color: "#000000" },
+      { name: "Express.js", icon: SiExpress, color: "#339933" },
       { name: "FastAPI", icon: SiFastapi, color: "#009688" }
     ]
   },
@@ -143,14 +150,14 @@ export const skills = [
       { name: "Docker", icon: SiDocker, color: "#2496ED" },
       { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
       { name: "Git", icon: SiGit, color: "#F05032" },
-      { name: "GitHub", icon: SiGithub, color: "#000000" }
+      { name: "GitHub", icon: SiGithub, color: "#FFFFFF" }
     ]
   },
   {
     category: "AI",
     items: [
-      { name: "Groq", icon: RiRobot2Line, color: "#000000" },
-      { name: "OpenAI", icon: SiOpenai, color: "#000000" }
+      { name: "Groq", icon: RiRobot2Line, color: "#FFFFFF" },
+      { name: "OpenAI", icon: SiOpenai, color: "#FFFFFF" }
     ]
   }
 ];
