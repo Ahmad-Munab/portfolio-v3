@@ -105,52 +105,52 @@ export const skills = [
   {
     category: "Languages",
     items: [
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "Python", icon: SiPython }
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { name: "Python", icon: SiPython, color: "#3776AB" }
     ]
   },
   {
     category: "Frontend",
     items: [
-      { name: "Next.js", icon: SiNextdotjs },
-      { name: "React.js", icon: SiReact },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "Bootstrap", icon: SiBootstrap },
-      { name: "shadcn UI", icon: LuComponent },
-      { name: "Aceternity UI", icon: MdAnimation }
+      { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
+      { name: "React.js", icon: SiReact, color: "#61DAFB" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
+      { name: "shadcn UI", icon: LuComponent, color: "#000000" },
+      { name: "Aceternity UI", icon: MdAnimation, color: "#000000" }
     ]
   },
   {
     category: "Backend",
     items: [
-      { name: "Node.js", icon: SiNodedotjs },
-      { name: "Express.js", icon: SiExpress },
-      { name: "FastAPI", icon: SiFastapi }
+      { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+      { name: "Express.js", icon: SiExpress, color: "#000000" },
+      { name: "FastAPI", icon: SiFastapi, color: "#009688" }
     ]
   },
   {
     category: "Database",
     items: [
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "MySQL", icon: SiMysql }
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+      { name: "MySQL", icon: SiMysql, color: "#4479A1" }
     ]
   },
   {
     category: "DevOps & Tools",
     items: [
-      { name: "Docker", icon: SiDocker },
-      { name: "Cloudflare", icon: SiCloudflare },
-      { name: "Git", icon: SiGit },
-      { name: "GitHub", icon: SiGithub }
+      { name: "Docker", icon: SiDocker, color: "#2496ED" },
+      { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub, color: "#000000" }
     ]
   },
   {
     category: "AI",
     items: [
-      { name: "Groq", icon: RiRobot2Line },
-      { name: "OpenAI", icon: SiOpenai }
+      { name: "Groq", icon: RiRobot2Line, color: "#000000" },
+      { name: "OpenAI", icon: SiOpenai, color: "#000000" }
     ]
   }
 ];

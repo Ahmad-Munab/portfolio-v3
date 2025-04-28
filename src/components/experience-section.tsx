@@ -24,7 +24,7 @@ export function ExperienceSection() {
             {experiences.map((experience, index) => (
               <motion.div
                 key={`${experience.company}-${index}`}
-                className="relative pl-10"
+                className="relative pt-[0.3rem]"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -32,7 +32,7 @@ export function ExperienceSection() {
               >
                 {/* Timeline dot */}
                 <motion.div
-                  className="absolute left-4 top-1.5 transform -translate-x-1/2 z-10"
+                  className="absolute left-0 top-0 transform -translate-x-1/2 z-10 transition-all duration-200"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
@@ -43,7 +43,7 @@ export function ExperienceSection() {
 
                 {/* Content */}
                 <motion.div
-                  className="bg-background rounded-xl border border-foreground/10 p-4"
+                  className="bg-background rounded-xl border border-foreground/10 p-5"
                   whileHover={{
                     y: -2,
                     borderColor: "rgba(0, 0, 0, 0.2)",

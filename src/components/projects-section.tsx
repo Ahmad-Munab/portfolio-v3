@@ -23,11 +23,11 @@ export function ProjectsSection() {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative p-2 overflow-hidden rounded-xl border border-foreground/10 bg-background cursor-pointer hover:border-foreground/20 transition-all"
+              className="group relative p-2 overflow-hidden rounded-xl border border-foreground/10 bg-background cursor-pointer hover:border-foreground/20 ease-in-out transition-all"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              transition={{ duration: 0.25 }}
               whileHover={{
                 y: -3,
                 borderColor: "rgba(0, 0, 0, 0.2)",

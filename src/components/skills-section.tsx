@@ -35,7 +35,7 @@ export function SkillsSection() {
                   return (
                     <motion.div
                       key={skill.name}
-                      className="flex items-center gap-2 border border-foreground/10 px-3 py-2 rounded-xl"
+                      className="flex items-center gap-2 border border-foreground/10 px-3 py-2 rounded-xl cursor-pointer skill-item"
                       initial={{ opacity: 0, scale: 0.95 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
@@ -44,12 +44,15 @@ export function SkillsSection() {
                         delay: 0.03 * index + 0.1 * groupIndex,
                       }}
                       whileHover={{
-                        y: -2,
-                        borderColor: "rgba(0, 0, 0, 0.2)",
+                        y: -3,
+                        transition: { duration: 0.2 },
                       }}
                     >
-                      <span className="text-base">
-                        <Icon />
+                      <span className="text-base transition-all duration-200">
+                        <Icon
+                          className="skill-icon"
+                          style={{ color: skill.color }}
+                        />
                       </span>
                       <span className="text-sm">{skill.name}</span>
                     </motion.div>

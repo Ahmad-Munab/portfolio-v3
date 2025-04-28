@@ -116,3 +116,8 @@
     transform: translateY(calc(var(--distance) * 1.2)) translateX(calc(var(--distance) * 0.5));
   }
 }
+
+/* Skill icon hover effect */
+.skill-item:hover .skill-icon {
+  color: white !important;
+}
