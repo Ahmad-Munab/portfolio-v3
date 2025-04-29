@@ -19,7 +19,7 @@ export function ProjectsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
             <motion.a
-              key={project.title}
+              key={index}
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
