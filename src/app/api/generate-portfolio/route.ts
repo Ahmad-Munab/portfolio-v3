@@ -4,7 +4,6 @@ import path from "path";
 import fsExtra from "fs-extra";
 import archiver from "archiver";
 import { v4 as uuidv4 } from "uuid";
-import { Readable } from "stream";
 
 // Helper function to save a file from FormData
 async function saveFormFile(formData: FormData, name: string, uploadDir: string): Promise<string | null> {
@@ -91,9 +90,13 @@ export async function POST(req: NextRequest) {
     };
 
     // Transform skills data to match the expected format
-    const transformedSkills = skills.map((category: any) => ({
+    const transformedSkills = skills.map((category: {
+      category: string;
+      items: { name: string; icon: string; color: string }[];
+      selectedTechs: string[];
+    }) => ({
       category: category.category,
-      items: category.items.map((item: any) => ({
+      items: category.items.map((item) => ({
         name: item.name,
         icon: item.icon,
         color: item.color,
@@ -134,7 +137,15 @@ export const about = ${JSON.stringify(aboutData, null, 2)};
 
     // 2. Update experience.ts with professional experience
     // Transform experiences data to match the expected format
-    const transformedExperiences = experiences.map((exp: any) => {
+    const transformedExperiences = experiences.map((exp: {
+      title: string;
+      company: string;
+      location: string;
+      period: string;
+      description: string;
+      technologies: string;
+      selectedTechs: string[];
+    }) => {
       // Split technologies string into an array and map to icon imports
       const techArray = exp.technologies.split(",").map((tech: string) => tech.trim());
       const techIcons = techArray.map((tech: string) => {
@@ -180,7 +191,14 @@ export const experiences = ${JSON.stringify(transformedExperiences, null, 2)};
 
     // 3. Update projects.ts with project information
     // Transform projects data to match the expected format
-    const transformedProjects = projects.map((project: any, index: number) => {
+    const transformedProjects = projects.map((project: {
+      title: string;
+      description: string;
+      technologies: string;
+      url: string;
+      image: File | null;
+      selectedTechs: string[];
+    }, index: number) => {
       // Split technologies string into an array and map to icon imports
       const techArray = project.technologies ? project.technologies.split(",").map((tech: string) => tech.trim()) : [];
       const techIcons = techArray.map((tech: string) => {

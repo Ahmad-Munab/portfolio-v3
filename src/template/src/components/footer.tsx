@@ -3,7 +3,6 @@ import {
   FaLinkedin,
   FaGithub,
   FaEnvelope,
-  FaHeart,
   FaRegFileCode,
 } from "react-icons/fa";
 import { motion } from "framer-motion";

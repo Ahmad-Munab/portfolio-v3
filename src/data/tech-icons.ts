@@ -9,7 +9,6 @@ import {
   SiRust,
   SiCplusplus,
   SiCsharp,
-  SiJava,
   SiKotlin,
   SiSwift,
   SiDart,
@@ -20,7 +19,6 @@ import {
   SiSvelte,
   SiTailwindcss,
   SiBootstrap,
-  SiMaterialui,
   SiChakraui,
   SiStyledcomponents,
   SiSass,
@@ -43,7 +41,6 @@ import {
   SiFirebase,
   SiSupabase,
   SiPlanetscale,
-  SiAmazonaws,
   SiMicrosoftazure,
   SiGooglecloud,
   SiVercel,
@@ -70,12 +67,6 @@ import {
   SiPandas,
   SiNumpy,
   SiJupyter,
-  SiGrafana,
-  SiPrometheus,
-  SiElasticsearch,
-  SiKibana,
-  SiApachekafka,
-  SiRabbitmq,
   SiNginx,
   SiApache,
   SiJest,
@@ -84,7 +75,6 @@ import {
   SiSelenium,
   SiWebpack,
   SiVite,
-  SiRollupDotjs,
   SiEslint,
   SiPrettier,
   SiStorybook,
@@ -100,11 +90,11 @@ import {
   SiApollographql,
   SiPrisma,
   SiSequelize,
-  SiShadcnui,
 } from "react-icons/si";
 import { RiRobot2Line } from "react-icons/ri";
 import { LuComponent } from "react-icons/lu";
 import { MdAnimation } from "react-icons/md";
+import { FaJava, FaAws } from "react-icons/fa";
 
 export interface TechIcon {
   name: string;
@@ -124,7 +114,7 @@ export const techIcons: TechIcon[] = [
   { name: "Rust", icon: SiRust, color: "#000000", category: "Languages" },
   { name: "C++", icon: SiCplusplus, color: "#00599C", category: "Languages" },
   { name: "C#", icon: SiCsharp, color: "#239120", category: "Languages" },
-  { name: "Java", icon: SiJava, color: "#007396", category: "Languages" },
+  { name: "Java", icon: FaJava, color: "#007396", category: "Languages" },
   { name: "Kotlin", icon: SiKotlin, color: "#7F52FF", category: "Languages" },
   { name: "Swift", icon: SiSwift, color: "#FA7343", category: "Languages" },
   { name: "Dart", icon: SiDart, color: "#0175C2", category: "Languages" },
@@ -137,7 +127,7 @@ export const techIcons: TechIcon[] = [
   { name: "Svelte", icon: SiSvelte, color: "#FF3E00", category: "Frontend" },
   { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", category: "Frontend" },
   { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3", category: "Frontend" },
-  { name: "Material UI", icon: SiMaterialui, color: "#0081CB", category: "Frontend" },
+  { name: "Material UI", icon: SiReact, color: "#0081CB", category: "Frontend" },
   { name: "Chakra UI", icon: SiChakraui, color: "#319795", category: "Frontend" },
   { name: "Styled Components", icon: SiStyledcomponents, color: "#DB7093", category: "Frontend" },
   { name: "SASS", icon: SiSass, color: "#CC6699", category: "Frontend" },
@@ -173,7 +163,7 @@ export const techIcons: TechIcon[] = [
   { name: "Sequelize", icon: SiSequelize, color: "#52B0E7", category: "Database" },
 
   // Cloud & DevOps
-  { name: "AWS", icon: SiAmazonaws, color: "#FF9900", category: "Cloud & DevOps" },
+  { name: "AWS", icon: FaAws, color: "#FF9900", category: "Cloud & DevOps" },
   { name: "Azure", icon: SiMicrosoftazure, color: "#0078D4", category: "Cloud & DevOps" },
   { name: "Google Cloud", icon: SiGooglecloud, color: "#4285F4", category: "Cloud & DevOps" },
   { name: "Vercel", icon: SiVercel, color: "#000000", category: "Cloud & DevOps" },

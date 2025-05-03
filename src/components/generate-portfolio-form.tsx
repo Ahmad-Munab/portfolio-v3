@@ -2,34 +2,41 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
-import { FaPlus, FaTrash, FaUpload, FaDownload } from "react-icons/fa";
+import { FaPlus, FaTrash, FaDownload, FaShare } from "react-icons/fa";
+import { TechSelector } from "@/components/tech-selector";
+import { techIcons } from "@/data/tech-icons";
 
-// Define the form schema with Zod
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  title: z.string().min(2, { message: "Title must be at least 2 characters" }),
-  location: z.string().min(2, { message: "Location must be at least 2 characters" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  bio: z.string().min(10, { message: "Bio must be at least 10 characters" }),
-  github: z.string().url({ message: "Please enter a valid URL" }).optional().or(z.literal("")),
-  linkedin: z.string().url({ message: "Please enter a valid URL" }).optional().or(z.literal("")),
-  
-  // These will be handled separately as they're more complex
-  // experiences: z.array(...),
-  // skills: z.array(...),
-  // projects: z.array(...),
-});
-
-type FormValues = z.infer<typeof formSchema> & {
+// Define the complete form values type
+type FormValues = {
+  name: string;
+  title: string;
+  location: string;
+  email: string;
+  bio: string;
+  github?: string;
+  linkedin?: string;
   profilePicture: FileList | null;
   resume: FileList | null;
   experiences: {
@@ -39,6 +46,7 @@ type FormValues = z.infer<typeof formSchema> & {
     period: string;
     description: string;
     technologies: string;
+    selectedTechs: string[];
   }[];
   skills: {
     category: string;
@@ -47,29 +55,47 @@ type FormValues = z.infer<typeof formSchema> & {
       icon: string;
       color: string;
     }[];
+    selectedTechs: string[];
   }[];
   projects: {
     title: string;
     description: string;
     technologies: string;
     url: string;
+    image: FileList | null;
+    selectedTechs: string[];
   }[];
 };
 
 export function GeneratePortfolioForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [experiences, setExperiences] = useState([
-    { title: "", company: "", location: "", period: "", description: "", technologies: "" }
+  const [experiences, setExperiences] = useState<FormValues["experiences"]>([
+    {
+      title: "",
+      company: "",
+      location: "",
+      period: "",
+      description: "",
+      technologies: "",
+      selectedTechs: [],
+    },
   ]);
-  const [skillCategories, setSkillCategories] = useState([
-    { category: "Languages", items: [{ name: "", icon: "", color: "" }] }
+  const [skillCategories, setSkillCategories] = useState<FormValues["skills"]>([
+    { category: "Languages", items: [], selectedTechs: [] },
   ]);
-  const [projects, setProjects] = useState([
-    { title: "", description: "", technologies: "", url: "" }
+  const [projects, setProjects] = useState<FormValues["projects"]>([
+    {
+      title: "",
+      description: "",
+      technologies: "",
+      url: "",
+      image: null,
+      selectedTechs: [],
+    },
   ]);
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    // Using a more compatible approach without the zodResolver
     defaultValues: {
       name: "",
       title: "",
@@ -88,7 +114,18 @@ export function GeneratePortfolioForm() {
 
   // Add/remove functions for dynamic fields
   const addExperience = () => {
-    setExperiences([...experiences, { title: "", company: "", location: "", period: "", description: "", technologies: "" }]);
+    setExperiences([
+      ...experiences,
+      {
+        title: "",
+        company: "",
+        location: "",
+        period: "",
+        description: "",
+        technologies: "",
+        selectedTechs: [],
+      },
+    ]);
   };
 
   const removeExperience = (index: number) => {
@@ -97,8 +134,26 @@ export function GeneratePortfolioForm() {
     }
   };
 
+  const handleExperienceTechSelection = (
+    expIndex: number,
+    selectedTechs: string[]
+  ) => {
+    const updatedExperiences = [...experiences];
+
+    // Update the selectedTechs array
+    updatedExperiences[expIndex].selectedTechs = selectedTechs;
+
+    // Update the technologies string with comma-separated tech names
+    updatedExperiences[expIndex].technologies = selectedTechs.join(", ");
+
+    setExperiences(updatedExperiences);
+  };
+
   const addSkillCategory = () => {
-    setSkillCategories([...skillCategories, { category: "", items: [{ name: "", icon: "", color: "" }] }]);
+    setSkillCategories([
+      ...skillCategories,
+      { category: "", items: [], selectedTechs: [] },
+    ]);
   };
 
   const removeSkillCategory = (index: number) => {
@@ -107,22 +162,40 @@ export function GeneratePortfolioForm() {
     }
   };
 
-  const addSkillItem = (categoryIndex: number) => {
+  const handleTechSelection = (
+    categoryIndex: number,
+    selectedTechs: string[]
+  ) => {
     const updatedCategories = [...skillCategories];
-    updatedCategories[categoryIndex].items.push({ name: "", icon: "", color: "" });
+
+    // Update the selectedTechs array
+    updatedCategories[categoryIndex].selectedTechs = selectedTechs;
+
+    // Update the items array with the corresponding tech objects
+    updatedCategories[categoryIndex].items = selectedTechs.map((techName) => {
+      const tech = techIcons.find((t) => t.name === techName);
+      return {
+        name: tech?.name || "",
+        icon: tech?.icon.name || "",
+        color: tech?.color || "",
+      };
+    });
+
     setSkillCategories(updatedCategories);
   };
 
-  const removeSkillItem = (categoryIndex: number, itemIndex: number) => {
-    if (skillCategories[categoryIndex].items.length > 1) {
-      const updatedCategories = [...skillCategories];
-      updatedCategories[categoryIndex].items = updatedCategories[categoryIndex].items.filter((_, i) => i !== itemIndex);
-      setSkillCategories(updatedCategories);
-    }
-  };
-
   const addProject = () => {
-    setProjects([...projects, { title: "", description: "", technologies: "", url: "" }]);
+    setProjects([
+      ...projects,
+      {
+        title: "",
+        description: "",
+        technologies: "",
+        url: "",
+        image: null,
+        selectedTechs: [],
+      },
+    ]);
   };
 
   const removeProject = (index: number) => {
@@ -131,14 +204,29 @@ export function GeneratePortfolioForm() {
     }
   };
 
+  const handleProjectTechSelection = (
+    projectIndex: number,
+    selectedTechs: string[]
+  ) => {
+    const updatedProjects = [...projects];
+
+    // Update the selectedTechs array
+    updatedProjects[projectIndex].selectedTechs = selectedTechs;
+
+    // Update the technologies string with comma-separated tech names
+    updatedProjects[projectIndex].technologies = selectedTechs.join(", ");
+
+    setProjects(updatedProjects);
+  };
+
   // Form submission handler
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true);
-    
+
     try {
       // Create FormData object to handle file uploads
       const formData = new FormData();
-      
+
       // Add basic info
       formData.append("name", data.name);
       formData.append("title", data.title);
@@ -147,35 +235,42 @@ export function GeneratePortfolioForm() {
       formData.append("bio", data.bio);
       formData.append("github", data.github || "");
       formData.append("linkedin", data.linkedin || "");
-      
+
       // Add experiences
       formData.append("experiences", JSON.stringify(experiences));
-      
+
       // Add skills
       formData.append("skills", JSON.stringify(skillCategories));
-      
+
       // Add projects
       formData.append("projects", JSON.stringify(projects));
-      
+
       // Add files if they exist
       if (data.profilePicture && data.profilePicture.length > 0) {
         formData.append("profilePicture", data.profilePicture[0]);
       }
-      
+
       if (data.resume && data.resume.length > 0) {
         formData.append("resume", data.resume[0]);
       }
-      
+
+      // Add project images if they exist
+      projects.forEach((project, index) => {
+        if (project.image && project.image.length > 0) {
+          formData.append(`projectImage-${index}`, project.image[0]);
+        }
+      });
+
       // Send the data to the API
       const response = await fetch("/api/generate-portfolio", {
         method: "POST",
         body: formData,
       });
-      
+
       if (!response.ok) {
         throw new Error("Failed to generate portfolio");
       }
-      
+
       // Handle successful response - this will be a file download
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -185,10 +280,46 @@ export function GeneratePortfolioForm() {
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
-      
+
       toast({
         title: "Success!",
         description: "Your portfolio has been generated and downloaded.",
+      });
+
+      // Show share options
+      const shareData = {
+        title: "Check out my new portfolio!",
+        text: "I just created a custom portfolio using this amazing generator!",
+        url: window.location.href,
+      };
+
+      // Add a share button to the toast
+      toast({
+        title: "Share Your Creation",
+        description: (
+          <div className="flex items-center gap-2 mt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share(shareData);
+                  } catch (error) {
+                    console.log("Error sharing:", error);
+                  }
+                }
+              }}
+              className="gap-2"
+            >
+              <FaShare size={14} />
+              Share
+            </Button>
+            <span className="text-xs text-muted-foreground">
+              Let others know about this portfolio generator!
+            </span>
+          </div>
+        ),
       });
     } catch (error) {
       console.error("Error generating portfolio:", error);
@@ -204,7 +335,10 @@ export function GeneratePortfolioForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-4xl mx-auto">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 max-w-4xl mx-auto"
+      >
         <Card>
           <CardHeader>
             <CardTitle>Personal Information</CardTitle>
@@ -241,7 +375,7 @@ export function GeneratePortfolioForm() {
                 )}
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -270,7 +404,7 @@ export function GeneratePortfolioForm() {
                 )}
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -279,7 +413,10 @@ export function GeneratePortfolioForm() {
                   <FormItem>
                     <FormLabel>GitHub URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://github.com/yourusername" {...field} />
+                      <Input
+                        placeholder="https://github.com/yourusername"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -292,14 +429,17 @@ export function GeneratePortfolioForm() {
                   <FormItem>
                     <FormLabel>LinkedIn URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://linkedin.com/in/yourusername" {...field} />
+                      <Input
+                        placeholder="https://linkedin.com/in/yourusername"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-            
+
             <FormField
               control={form.control}
               name="bio"
@@ -307,17 +447,17 @@ export function GeneratePortfolioForm() {
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="Write a short bio about yourself..." 
+                    <Textarea
+                      placeholder="Write a short bio about yourself..."
                       className="min-h-[100px]"
-                      {...field} 
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormItem>
                 <FormLabel>Profile Picture</FormLabel>
@@ -325,14 +465,18 @@ export function GeneratePortfolioForm() {
                   <Input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => form.setValue("profilePicture", e.target.files)}
+                    onChange={(e) =>
+                      form.setValue("profilePicture", e.target.files)
+                    }
                     className="cursor-pointer"
                   />
                 </FormControl>
-                <FormDescription>Upload a square image for best results.</FormDescription>
+                <FormDescription>
+                  Upload a square image for best results.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
-              
+
               <FormItem>
                 <FormLabel>Resume (PDF)</FormLabel>
                 <FormControl>
@@ -343,24 +487,24 @@ export function GeneratePortfolioForm() {
                     className="cursor-pointer"
                   />
                 </FormControl>
-                <FormDescription>Upload your resume in PDF or DOCX format.</FormDescription>
+                <FormDescription>
+                  Upload your resume in PDF or DOCX format.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             </div>
           </CardContent>
         </Card>
-        
+
         {/* Experience Section */}
         <Card>
           <CardHeader>
             <CardTitle>Professional Experience</CardTitle>
-            <CardDescription>
-              Add your work experience details.
-            </CardDescription>
+            <CardDescription>Add your work experience details.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {experiences.map((exp, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="p-4 border border-border rounded-lg space-y-4"
                 initial={{ opacity: 0, y: 10 }}
@@ -368,10 +512,12 @@ export function GeneratePortfolioForm() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex justify-between items-center">
-                  <h3 className="text-sm font-medium">Experience #{index + 1}</h3>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
+                  <h3 className="text-sm font-medium">
+                    Experience #{index + 1}
+                  </h3>
+                  <Button
+                    type="button"
+                    variant="ghost"
                     size="sm"
                     onClick={() => removeExperience(index)}
                     disabled={experiences.length <= 1}
@@ -379,12 +525,12 @@ export function GeneratePortfolioForm() {
                     <FaTrash className="text-destructive" size={14} />
                   </Button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormItem>
                     <FormLabel>Job Title</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="Software Engineer"
                         value={exp.title}
                         onChange={(e) => {
@@ -395,11 +541,11 @@ export function GeneratePortfolioForm() {
                       />
                     </FormControl>
                   </FormItem>
-                  
+
                   <FormItem>
                     <FormLabel>Company</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="Company Name"
                         value={exp.company}
                         onChange={(e) => {
@@ -411,12 +557,12 @@ export function GeneratePortfolioForm() {
                     </FormControl>
                   </FormItem>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormItem>
                     <FormLabel>Location</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="City, Country"
                         value={exp.location}
                         onChange={(e) => {
@@ -427,11 +573,11 @@ export function GeneratePortfolioForm() {
                       />
                     </FormControl>
                   </FormItem>
-                  
+
                   <FormItem>
                     <FormLabel>Period</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="2020 - Present"
                         value={exp.period}
                         onChange={(e) => {
@@ -443,11 +589,11 @@ export function GeneratePortfolioForm() {
                     </FormControl>
                   </FormItem>
                 </div>
-                
+
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="Describe your responsibilities and achievements..."
                       className="min-h-[80px]"
                       value={exp.description}
@@ -459,25 +605,26 @@ export function GeneratePortfolioForm() {
                     />
                   </FormControl>
                 </FormItem>
-                
+
                 <FormItem>
                   <FormLabel>Technologies</FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="React, Node.js, TypeScript (comma separated)"
-                      value={exp.technologies}
-                      onChange={(e) => {
-                        const updated = [...experiences];
-                        updated[index].technologies = e.target.value;
-                        setExperiences(updated);
-                      }}
+                    <TechSelector
+                      value={exp.selectedTechs || []}
+                      onChange={(value) =>
+                        handleExperienceTechSelection(index, value)
+                      }
+                      placeholder="Select technologies for this experience..."
                     />
                   </FormControl>
-                  <FormDescription>Enter technologies as comma-separated values</FormDescription>
+                  <FormDescription>
+                    Choose from the list of technologies with their icons and
+                    colors
+                  </FormDescription>
                 </FormItem>
               </motion.div>
             ))}
-            
+
             <Button
               type="button"
               variant="outline"
@@ -490,7 +637,7 @@ export function GeneratePortfolioForm() {
             </Button>
           </CardContent>
         </Card>
-        
+
         {/* Skills Section */}
         <Card>
           <CardHeader>
@@ -501,7 +648,7 @@ export function GeneratePortfolioForm() {
           </CardHeader>
           <CardContent className="space-y-6">
             {skillCategories.map((category, catIndex) => (
-              <motion.div 
+              <motion.div
                 key={catIndex}
                 className="p-4 border border-border rounded-lg space-y-4"
                 initial={{ opacity: 0, y: 10 }}
@@ -512,7 +659,7 @@ export function GeneratePortfolioForm() {
                   <FormItem className="flex-1 mr-4">
                     <FormLabel>Category Name</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="Languages, Frontend, Backend, etc."
                         value={category.category}
                         onChange={(e) => {
@@ -523,10 +670,10 @@ export function GeneratePortfolioForm() {
                       />
                     </FormControl>
                   </FormItem>
-                  
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
+
+                  <Button
+                    type="button"
+                    variant="ghost"
                     size="sm"
                     onClick={() => removeSkillCategory(catIndex)}
                     disabled={skillCategories.length <= 1}
@@ -535,87 +682,28 @@ export function GeneratePortfolioForm() {
                     <FaTrash className="text-destructive" size={14} />
                   </Button>
                 </div>
-                
+
                 <div className="space-y-4">
-                  <h4 className="text-sm font-medium">Skills in this category:</h4>
-                  
-                  {category.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end border-t border-border pt-4">
-                      <FormItem>
-                        <FormLabel>Skill Name</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="JavaScript"
-                            value={item.name}
-                            onChange={(e) => {
-                              const updated = [...skillCategories];
-                              updated[catIndex].items[itemIndex].name = e.target.value;
-                              setSkillCategories(updated);
-                            }}
-                          />
-                        </FormControl>
-                      </FormItem>
-                      
-                      <FormItem>
-                        <FormLabel>Icon Name</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="SiJavascript"
-                            value={item.icon}
-                            onChange={(e) => {
-                              const updated = [...skillCategories];
-                              updated[catIndex].items[itemIndex].icon = e.target.value;
-                              setSkillCategories(updated);
-                            }}
-                          />
-                        </FormControl>
-                        <FormDescription>Use React Icons names (e.g., SiJavascript)</FormDescription>
-                      </FormItem>
-                      
-                      <div className="flex items-center gap-2">
-                        <FormItem className="flex-1">
-                          <FormLabel>Color</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="#F7DF1E"
-                              value={item.color}
-                              onChange={(e) => {
-                                const updated = [...skillCategories];
-                                updated[catIndex].items[itemIndex].color = e.target.value;
-                                setSkillCategories(updated);
-                              }}
-                            />
-                          </FormControl>
-                        </FormItem>
-                        
-                        <Button 
-                          type="button" 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => removeSkillItem(catIndex, itemIndex)}
-                          disabled={category.items.length <= 1}
-                          className="mb-0.5"
-                        >
-                          <FaTrash className="text-destructive" size={14} />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                  
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addSkillItem(catIndex)}
-                    className="w-full"
-                  >
-                    <FaPlus className="mr-2" size={14} />
-                    Add Skill
-                  </Button>
+                  <FormItem>
+                    <FormLabel>Select Skills</FormLabel>
+                    <FormControl>
+                      <TechSelector
+                        value={category.selectedTechs || []}
+                        onChange={(value) =>
+                          handleTechSelection(catIndex, value)
+                        }
+                        placeholder="Select technologies for this category..."
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Choose from the list of technologies with their icons and
+                      colors
+                    </FormDescription>
+                  </FormItem>
                 </div>
               </motion.div>
             ))}
-            
+
             <Button
               type="button"
               variant="outline"
@@ -628,18 +716,16 @@ export function GeneratePortfolioForm() {
             </Button>
           </CardContent>
         </Card>
-        
+
         {/* Projects Section */}
         <Card>
           <CardHeader>
             <CardTitle>Projects</CardTitle>
-            <CardDescription>
-              Add your notable projects.
-            </CardDescription>
+            <CardDescription>Add your notable projects.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {projects.map((project, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="p-4 border border-border rounded-lg space-y-4"
                 initial={{ opacity: 0, y: 10 }}
@@ -648,9 +734,9 @@ export function GeneratePortfolioForm() {
               >
                 <div className="flex justify-between items-center">
                   <h3 className="text-sm font-medium">Project #{index + 1}</h3>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
+                  <Button
+                    type="button"
+                    variant="ghost"
                     size="sm"
                     onClick={() => removeProject(index)}
                     disabled={projects.length <= 1}
@@ -658,12 +744,12 @@ export function GeneratePortfolioForm() {
                     <FaTrash className="text-destructive" size={14} />
                   </Button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormItem>
                     <FormLabel>Project Title</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="Project Name"
                         value={project.title}
                         onChange={(e) => {
@@ -674,11 +760,11 @@ export function GeneratePortfolioForm() {
                       />
                     </FormControl>
                   </FormItem>
-                  
+
                   <FormItem>
                     <FormLabel>Project URL</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         placeholder="https://example.com"
                         value={project.url}
                         onChange={(e) => {
@@ -690,11 +776,11 @@ export function GeneratePortfolioForm() {
                     </FormControl>
                   </FormItem>
                 </div>
-                
+
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="Describe your project..."
                       className="min-h-[80px]"
                       value={project.description}
@@ -706,25 +792,47 @@ export function GeneratePortfolioForm() {
                     />
                   </FormControl>
                 </FormItem>
-                
+
                 <FormItem>
                   <FormLabel>Technologies</FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="React, Node.js, TypeScript (comma separated)"
-                      value={project.technologies}
-                      onChange={(e) => {
-                        const updated = [...projects];
-                        updated[index].technologies = e.target.value;
-                        setProjects(updated);
-                      }}
+                    <TechSelector
+                      value={project.selectedTechs || []}
+                      onChange={(value) =>
+                        handleProjectTechSelection(index, value)
+                      }
+                      placeholder="Select technologies for this project..."
                     />
                   </FormControl>
-                  <FormDescription>Enter technologies as comma-separated values</FormDescription>
+                  <FormDescription>
+                    Choose from the list of technologies with their icons and
+                    colors
+                  </FormDescription>
+                </FormItem>
+
+                <FormItem>
+                  <FormLabel>Project Image</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const updated = [...projects];
+                        // Type assertion to ensure compatibility
+                        updated[index].image = e.target
+                          .files as FileList | null;
+                        setProjects(updated);
+                      }}
+                      className="cursor-pointer"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Upload a thumbnail image for your project
+                  </FormDescription>
                 </FormItem>
               </motion.div>
             ))}
-            
+
             <Button
               type="button"
               variant="outline"
@@ -737,7 +845,7 @@ export function GeneratePortfolioForm() {
             </Button>
           </CardContent>
         </Card>
-        
+
         <CardFooter className="flex justify-end">
           <Button type="submit" disabled={isSubmitting} className="gap-2">
             {isSubmitting ? (

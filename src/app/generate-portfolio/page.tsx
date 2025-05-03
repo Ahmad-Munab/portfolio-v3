@@ -78,10 +78,13 @@ export default function GeneratePortfolioPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl font-bold tracking-tighter mb-2">Create Your Portfolio</h1>
+            <h1 className="text-3xl font-bold tracking-tighter mb-2">
+              Create Your Portfolio
+            </h1>
             <p className="text-foreground/70 max-w-3xl">
-              Fill out the form below to generate your own customized portfolio website based on this template.
-              You'll receive a downloadable zip file containing your personalized Next.js project.
+              Fill out the form below to generate your own customized portfolio
+              website based on this template. You&apos;ll receive a downloadable
+              zip file containing your personalized Next.js project.
             </p>
           </motion.div>
 
