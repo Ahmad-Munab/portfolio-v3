@@ -418,9 +418,16 @@ export const projects = [
 
     // 4. Copy uploaded files to the appropriate locations
     if (profilePicturePath) {
+      // Copy profile picture
       await fsExtra.copy(
         profilePicturePath,
         path.join(tempDir, "public", "Picture.jpg")
+      );
+
+      // Also copy it as favicon.ico
+      await fsExtra.copy(
+        profilePicturePath,
+        path.join(tempDir, "public", "favicon.ico")
       );
     }
 
@@ -430,6 +437,12 @@ export const projects = [
         path.join(tempDir, "public", "Resume.pdf")
       );
     }
+
+    // Copy the fixed skills-section.tsx file
+    await fsExtra.copy(
+      path.join(process.cwd(), "src", "template", "src", "components", "skills-section.tsx.new"),
+      path.join(tempDir, "src", "components", "skills-section.tsx")
+    );
 
     // Create a placeholder directory for project images
     await fsExtra.ensureDir(path.join(tempDir, "public", "project-images"));
@@ -496,11 +509,14 @@ export const projects = [
       await fsExtra.remove(imagePath);
     }
 
+    // Create a sanitized name for the portfolio
+    const sanitizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+
     // Return the zip file as a download
     return new NextResponse(zipFile, {
       headers: {
         "Content-Type": "application/zip",
-        "Content-Disposition": `attachment; filename=portfolio-${Date.now()}.zip`,
+        "Content-Disposition": `attachment; filename=portfolio-of-${sanitizedName}-${Date.now()}.zip`,
       },
     });
   } catch (error) {

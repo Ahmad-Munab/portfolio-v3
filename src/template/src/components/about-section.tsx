@@ -43,17 +43,16 @@ export function AboutSection() {
               <div className="border border-foreground/10 p-4 rounded-xl hover:border-foreground/20 transition-colors">
                 <h4 className="text-base font-medium mb-2">Personal</h4>
                 <p className="text-foreground/70 text-sm">
-                  Passionate about building scalable and resilient systems with
-                  a focus on great user experiences. Utilizing AI to ship
-                  solutions in light speed!
+                  {about.personalBio ||
+                    "Passionate about building scalable and resilient systems with a focus on great user experiences."}
                 </p>
               </div>
 
               <div className="border border-foreground/10 p-4 rounded-xl hover:border-foreground/20 transition-colors">
                 <h4 className="text-base font-medium mb-2">Professional</h4>
                 <p className="text-foreground/70 text-sm">
-                  2+ years of experience across JavaScript and Python ecosystem,
-                  contributing to high-impact projects.
+                  {about.professionalBio ||
+                    "Experienced professional with a strong background in software development."}
                 </p>
               </div>
             </motion.div>

@@ -208,7 +208,16 @@ git push -u origin main`}
                       <li>
                         Click "New Project" and import your GitHub repository
                       </li>
-                      <li>Keep the default settings and click "Deploy"</li>
+                      <li>
+                        <strong className="text-amber-500">Important:</strong>{" "}
+                        Before deploying, go to "Build and Development Settings"
+                        and override the install command to:
+                        <CodeBlock
+                          code="npm i --legacy-peer-deps"
+                          language="bash"
+                        />
+                      </li>
+                      <li>Click "Deploy" to start the deployment process</li>
                     </ol>
                     <p className="text-sm text-muted-foreground mt-2">
                       Your portfolio will be live in minutes with a custom URL!

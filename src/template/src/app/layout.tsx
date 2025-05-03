@@ -10,6 +10,9 @@ const inconsolota = Raleway({
 export const metadata: Metadata = {
   title: `${about.name} || Portfolio`,
   description: about.title,
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
