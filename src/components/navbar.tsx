@@ -1,171 +1,174 @@
 import { about } from "@/data/about";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaTimes, FaRegFileCode } from "react-icons/fa";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const lastScrollY = useRef(0);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
+  const activeNavRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    // Get reference to the hero section
+    heroSectionRef.current = document.querySelector("section") as HTMLElement;
+
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const currentScrollY = window.scrollY;
+
+      // Check if hero section is out of view
+      const homeSection = document.getElementById("home");
+      if (homeSection) {
+        const heroHeight = homeSection.offsetHeight;
+        // Only show navbar when fully scrolled past hero section
+        if (currentScrollY >= heroHeight) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      }
+
+      // Set scrolled state for styling
+      if (currentScrollY > 50) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
 
-      // Update active section based on scroll position
-      const sections = [
-        "home",
-        "about",
-        "skills",
-        "experience",
-        "projects",
-        "contact",
-      ];
-      const scrollPosition = window.scrollY + 100; // Offset to trigger slightly before reaching the section
+      // Update active section based on scroll position with more responsive detection
+      const sections = ["home", "about", "skills", "experience", "projects"];
+
+      // Use a smaller offset to make the detection more responsive
+      const scrollPosition = currentScrollY + 50;
+
+      // Find the section closest to the current scroll position
+      let closestSection = "home";
+      let minDistance = Number.MAX_VALUE;
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
+          const sectionMiddle = offsetTop + offsetHeight / 2;
+          const distance = Math.abs(scrollPosition - sectionMiddle);
 
+          // Check if we're within the section bounds or if this is the closest section so far
           if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
+            (scrollPosition >= offsetTop &&
+              scrollPosition < offsetTop + offsetHeight) ||
+            distance < minDistance
           ) {
-            setActiveSection(section);
-            break;
+            minDistance = distance;
+            closestSection = section;
           }
         }
       }
+
+      if (activeSection !== closestSection) {
+        setActiveSection(closestSection);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [activeSection]);
+
+  // Scroll to section smoothly
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      // Calculate the position to scroll to
+      const navHeight = 80; // Approximate height of navbar
+      const offsetPosition = section.offsetTop - navHeight;
+
+      // Scroll smoothly to the section
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const navLinks = [
-    { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
     { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Skills", href: "#skills" },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/90 backdrop-blur-md shadow-sm py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between">
-          <motion.a
-            href="#home"
-            className="text-2xl font-bold flex items-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {about.name}
-            <span className="text-primary">.</span>
-          </motion.a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                className={`relative px-2 py-1 ${
-                  activeSection === link.href.substring(1)
-                    ? "text-primary font-medium"
-                    : "text-foreground/70 hover:text-primary"
-                } transition-colors`}
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-              >
-                {link.name}
-                {activeSection === link.href.substring(1) && (
-                  <motion.span
-                    className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-full"
-                    layoutId="navIndicator"
-                  />
-                )}
-              </motion.a>
-            ))}
+    <AnimatePresence>
+      {isVisible && (
+        <motion.header
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -50, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className={`fixed top-4 left-4 right-4 md:left-0 md:right-0 z-50 transition-all duration-300 max-w-3xl mx-auto hidden md:block ${
+            isScrolled
+              ? "bg-background/70 backdrop-blur-md shadow-md px-4 py-3 rounded-xl border border-foreground/5"
+              : "bg-transparent py-5"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            {/* Logo */}
             <motion.a
-              href="/Resume.pdf"
-              download
-              className="bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 transition-colors flex items-center gap-2"
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("home");
+              }}
+              className="text-2xl font-bold flex items-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <FaRegFileCode />
-              Resume
+              {about.name}
+              <span className="text-[#3b82f6]">.</span>
             </motion.a>
-          </nav>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            className="md:hidden text-foreground p-2 bg-foreground/5 rounded-full"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-background/95 backdrop-blur-md border-t border-foreground/10"
-          >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
+            {/* Navigation */}
+            <nav className="flex items-center space-x-6">
               {navLinks.map((link) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className={`${
+                  ref={
                     activeSection === link.href.substring(1)
-                      ? "text-primary font-medium"
-                      : "text-foreground/70"
-                  } py-2 px-3 rounded-lg hover:bg-foreground/5 transition-colors`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.98 }}
+                      ? activeNavRef
+                      : null
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href.substring(1));
+                  }}
+                  className={`relative px-2 py-1 ${
+                    activeSection === link.href.substring(1)
+                      ? "text-[#3b82f6] font-medium"
+                      : "text-foreground/80 hover:text-[#3b82f6]"
+                  } transition-colors`}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0 }}
                 >
                   {link.name}
+                  {activeSection === link.href.substring(1) && (
+                    <motion.span
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-[#3b82f6] rounded-full"
+                      layoutId="navIndicator"
+                    />
+                  )}
                 </motion.a>
               ))}
-              <motion.a
-                href="/Resume.pdf"
-                download
-                className="bg-primary text-white mt-2 px-4 py-3 rounded-lg hover:bg-primary/90 transition-colors text-center flex items-center justify-center gap-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-              >
-                <FaRegFileCode />
-                Download Resume
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+            </nav>
+          </div>
+        </motion.header>
+      )}
+    </AnimatePresence>
   );
 }

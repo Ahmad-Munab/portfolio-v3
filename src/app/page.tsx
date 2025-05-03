@@ -5,6 +5,7 @@ import { AboutSection } from "@/components/about-section";
 import { SkillsSection } from "@/components/skills-section";
 import { ExperienceSection } from "@/components/experience-section";
 import { ProjectsSection } from "@/components/projects-section";
+import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { useEffect, useState } from "react";
 
@@ -88,8 +89,13 @@ export default function Home() {
         ))}
       </div>
 
+      {/* Navbar - appears when scrolling past hero section */}
+      <Navbar />
+
       <main className="lg:py-32 sm:py-24 py-12 lg:space-y-28 sm:space-y-24 space-y-16">
-        <HeroSection />
+        <section id="home">
+          <HeroSection />
+        </section>
         <AboutSection />
         <ExperienceSection />
         <ProjectsSection />
