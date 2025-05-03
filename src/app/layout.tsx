@@ -1,3 +1,4 @@
+import { about } from "@/data/about";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import "./globals.css";
@@ -7,8 +8,8 @@ const inconsolota = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Ahmad Munab || Portfolio",
-  description: "Software Engineer | AI Enthusiast | SaaS Builder",
+  title: `${about.name} || Portfolio`,
+  description: about.title,
 };
 
 export default function RootLayout({

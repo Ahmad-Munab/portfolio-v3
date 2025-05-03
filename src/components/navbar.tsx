@@ -1,3 +1,4 @@
+import { about } from "@/data/about";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes, FaRegFileCode } from "react-icons/fa";
@@ -72,7 +73,8 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Ahmad<span className="text-primary">.</span>
+            {about.name}
+            <span className="text-primary">.</span>
           </motion.a>
 
           {/* Desktop Navigation */}

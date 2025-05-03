@@ -7,6 +7,7 @@ import {
   FaRegFileCode,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -20,7 +21,8 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Ahmad<span className="text-[#3b82f6] text-2xl">.</span>
+            {about.name}
+            <span className="text-[#3b82f6] text-2xl">.</span>
           </motion.h2>
 
           <motion.div
@@ -73,10 +75,16 @@ export function Footer() {
 
         <div className="border-t border-foreground/10 pt-4 flex flex-col md:flex-row justify-between items-center">
           <p className="text-foreground/60 text-xs mb-2 md:mb-0">
-            &copy; {new Date().getFullYear()} Ahmad Munab. All rights reserved.
+            &copy; {new Date().getFullYear()} {about.name}. All rights reserved.
           </p>
           <p className="text-foreground/60 text-xs flex items-center gap-1">
-            Made with <FaHeart className="text-red-500" size={10} /> By Munab
+            Designed & Developed by{" "}
+            <Link
+              href={"https://munab.vercel.app"}
+              className="underline hover:-translate-y-[0.15rem] transition-all duration-200"
+            >
+              Ahmad Munab
+            </Link>
           </p>
         </div>
       </div>

@@ -79,6 +79,7 @@ export const skills = [
 
 export const about = {
   name: "Ahmad Munab",
+  nickName: "Munab",
   title: "Co-founder @ZenDevz | AI Enthusiast | SaaS Builder",
   location: "Dhaka, Bangladesh",
   phone: "+880 1968450105",
