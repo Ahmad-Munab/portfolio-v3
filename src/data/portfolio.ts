@@ -72,6 +72,16 @@ export const projects = [
 
 export const experiences = [
   {
+    title: "Co-founder",
+    company: "ZenDevz",
+    location: "Bangladesh",
+    period: "2024 – Present",
+    description: [
+      "Co-founding ZenDevz. A startup Providing lit software solutions by the Gen-z",
+    ],
+    tech: [SiNextdotjs, SiTailwindcss, SiPython, SiFastapi, SiPostgresql]
+  },
+  {
     title: "Full Stack Engineer",
     company: "AdmitPath",
     location: "Singapore",
@@ -164,7 +174,7 @@ export const skills = [
 
 export const about = {
   name: "Ahmad Munab",
-  title: "Software Engineer | AI Enthusiast | SaaS Builder",
+  title: "Co-founder @ZenDevz | AI Enthusiast | SaaS Builder",
   location: "Dhaka, Bangladesh",
   phone: "+880 1968450105",
   email: "ahmadmunab22@gmail.com",
