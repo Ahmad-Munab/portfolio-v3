@@ -36,28 +36,32 @@ export function Navbar() {
         setIsScrolled(false);
       }
 
-      // Update active section based on scroll position with more responsive detection
-      const sections = ["home", "about", "skills", "experience", "projects"];
+      // Update active section based on which section is in the middle of the viewport
+      const sections = ["about", "experience", "projects", "skills"];
 
-      // Use a smaller offset to make the detection more responsive
-      const scrollPosition = currentScrollY + 50;
+      // Calculate the middle point of the viewport
+      const viewportHeight = window.innerHeight;
+      // Adjust the middle point to be slightly above center for better UX
+      const viewportMiddle = currentScrollY + viewportHeight * 0.4;
 
-      // Find the section closest to the current scroll position
+      // Find the section that contains the middle of the viewport
       let closestSection = "home";
       let minDistance = Number.MAX_VALUE;
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          const sectionMiddle = offsetTop + offsetHeight / 2;
-          const distance = Math.abs(scrollPosition - sectionMiddle);
+          const rect = element.getBoundingClientRect();
+          const sectionTop = rect.top + currentScrollY;
+          const sectionBottom = rect.bottom + currentScrollY;
+          const sectionMiddle = (sectionTop + sectionBottom) / 2;
 
-          // Check if we're within the section bounds or if this is the closest section so far
+          // Calculate how far this section's middle is from the viewport middle
+          const distance = Math.abs(viewportMiddle - sectionMiddle);
+
+          // If this section contains the viewport middle or is closer than previous sections
           if (
-            (scrollPosition >= offsetTop &&
-              scrollPosition < offsetTop + offsetHeight) ||
+            (viewportMiddle >= sectionTop && viewportMiddle <= sectionBottom) ||
             distance < minDistance
           ) {
             minDistance = distance;
@@ -85,7 +89,7 @@ export function Navbar() {
     const section = document.getElementById(sectionId);
     if (section) {
       // Calculate the position to scroll to
-      const navHeight = 80; // Approximate height of navbar
+      const navHeight = 100; // Approximate height of navbar
       const offsetPosition = section.offsetTop - navHeight;
 
       // Scroll smoothly to the section
