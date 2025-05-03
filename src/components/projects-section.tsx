@@ -1,4 +1,4 @@
-import { projects } from "@/data/portfolio";
+import { projects } from "@/data/projects";
 import { motion } from "framer-motion";
 import Image from "next/image";
 

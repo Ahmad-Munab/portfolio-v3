@@ -1,4 +1,4 @@
-import { about } from "@/data/portfolio";
+import { about } from "@/data/about";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 

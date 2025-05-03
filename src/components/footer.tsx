@@ -1,4 +1,4 @@
-import { about } from "@/data/portfolio";
+import { about } from "@/data/about";
 import {
   FaLinkedin,
   FaGithub,

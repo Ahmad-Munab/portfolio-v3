@@ -1,4 +1,4 @@
-import { skills } from "@/data/portfolio";
+import { skills } from "@/data/about";
 import { motion } from "framer-motion";
 
 export function SkillsSection() {

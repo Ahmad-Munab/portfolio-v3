@@ -1,4 +1,4 @@
-import { experiences } from "@/data/portfolio";
+import { experiences } from "@/data/experience";
 import { motion } from "framer-motion";
 
 export function ExperienceSection() {
