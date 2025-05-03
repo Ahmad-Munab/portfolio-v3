@@ -4,6 +4,7 @@ import path from "path";
 import fsExtra from "fs-extra";
 import archiver from "archiver";
 import { v4 as uuidv4 } from "uuid";
+import { techIcons } from "@/data/tech-icons";
 
 // Helper function to save a file from FormData
 async function saveFormFile(formData: FormData, name: string, uploadDir: string): Promise<string | null> {
@@ -63,6 +64,8 @@ export async function POST(req: NextRequest) {
     const location = formData.get("location") as string;
     const email = formData.get("email") as string;
     const bio = formData.get("bio") as string;
+    const personalBio = formData.get("personalBio") as string;
+    const professionalBio = formData.get("professionalBio") as string;
     const github = formData.get("github") as string || "";
     const linkedin = formData.get("linkedin") as string || "";
     const experiences = JSON.parse(formData.get("experiences") as string);
@@ -87,45 +90,84 @@ export async function POST(req: NextRequest) {
         linkedin,
       },
       bio,
+      personalBio,
+      professionalBio,
+      // Note: phone is intentionally omitted as it's optional
     };
 
-    // Transform skills data to match the expected format
+    // Collect all unique tech icons used across all skill categories
+    const allSkillIcons = new Set<string>();
+    skills.forEach((category: {
+      category: string;
+      items: { name: string; icon: string; color: string }[];
+      selectedTechs: string[];
+    }) => {
+      category.selectedTechs.forEach((tech: string) => {
+        allSkillIcons.add(tech);
+      });
+    });
+
+    // Map tech names to icon imports for skills
+    const skillIconMap = new Map<string, string>();
+    allSkillIcons.forEach((tech: string) => {
+      // Handle special cases
+      if (tech === "shadcn UI") {
+        skillIconMap.set(tech, "LuComponent");
+      } else if (tech === "Aceternity UI") {
+        skillIconMap.set(tech, "MdAnimation");
+      } else if (tech === "Groq") {
+        skillIconMap.set(tech, "RiRobot2Line");
+      } else {
+        // Convert tech name to icon name (e.g., "React" -> "SiReact")
+        // Fix casing issues for common technologies
+        if (tech === "JavaScript") {
+          skillIconMap.set(tech, "SiJavascript");
+        } else if (tech === "TypeScript") {
+          skillIconMap.set(tech, "SiTypescript");
+        } else if (tech === "PHP") {
+          skillIconMap.set(tech, "SiPhp");
+        } else if (tech === "Python") {
+          skillIconMap.set(tech, "SiPython");
+        } else {
+          const iconName = `Si${tech.replace(/\./g, "").replace(/\s/g, "")}`;
+          skillIconMap.set(tech, iconName);
+        }
+      }
+    });
+
+    // Transform skills data to match the expected format with proper icon references
     const transformedSkills = skills.map((category: {
       category: string;
       items: { name: string; icon: string; color: string }[];
       selectedTechs: string[];
-    }) => ({
-      category: category.category,
-      items: category.items.map((item) => ({
-        name: item.name,
-        icon: item.icon,
-        color: item.color,
-      })),
-    }));
+    }) => {
+      return {
+        category: category.category,
+        items: category.selectedTechs.map((techName: string) => {
+          const tech = techIcons.find((t: { name: string; color: string }) => t.name === techName);
+          return {
+            name: techName,
+            icon: skillIconMap.get(techName) || "SiNextdotjs", // Use the mapped icon name
+            color: tech?.color || "#FFFFFF",
+          };
+        }),
+      };
+    });
 
-    // Create the about.ts file content
-    const aboutFileContent = `import { RiRobot2Line } from "react-icons/ri";
-import { LuComponent } from "react-icons/lu";
-import { MdAnimation } from "react-icons/md";
-import {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiMysql,
-  SiPostgresql,
-  SiOpenai,
-  SiReact,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPython,
-  SiFastapi,
-  SiJavascript,
-  SiTypescript,
-  SiBootstrap,
-  SiDocker,
-  SiCloudflare,
-  SiGit,
-  SiGithub
+    // Create the import statements for skills
+    const skillSiImports = Array.from(skillIconMap.values())
+      .filter(icon => icon.startsWith("Si"))
+      .sort()
+      .join(",\n  ");
+
+    // Check if we need other imports for skills
+    const skillNeedsRiImport = Array.from(skillIconMap.values()).some(icon => icon === "RiRobot2Line");
+    const skillNeedsMdImport = Array.from(skillIconMap.values()).some(icon => icon === "MdAnimation");
+    const skillNeedsLuImport = Array.from(skillIconMap.values()).some(icon => icon === "LuComponent");
+
+    // Create the about.ts file content with proper imports
+    const aboutFileContent = `${skillNeedsRiImport ? 'import { RiRobot2Line } from "react-icons/ri";\n' : ''}${skillNeedsLuImport ? 'import { LuComponent } from "react-icons/lu";\n' : ''}${skillNeedsMdImport ? 'import { MdAnimation } from "react-icons/md";\n' : ''}import {
+  ${skillSiImports}
 } from "react-icons/si";
 
 export const skills = ${JSON.stringify(transformedSkills, null, 2)};
@@ -146,12 +188,11 @@ export const about = ${JSON.stringify(aboutData, null, 2)};
       technologies: string;
       selectedTechs: string[];
     }) => {
-      // Split technologies string into an array and map to icon imports
-      const techArray = exp.technologies.split(",").map((tech: string) => tech.trim());
-      const techIcons = techArray.map((tech: string) => {
-        // Convert tech name to icon name (e.g., "React" -> "SiReact")
-        return `Si${tech.replace(/\./g, "").replace(/\s/g, "")}`;
-      });
+      // Use the selected techs instead of parsing the technologies string
+      const techArray = exp.selectedTechs || [];
+
+      // We'll map these to proper icon imports later
+      const techIcons = techArray;
 
       return {
         title: exp.title,
@@ -163,28 +204,95 @@ export const about = ${JSON.stringify(aboutData, null, 2)};
       };
     });
 
-    // Create the experience.ts file content
-    const experienceFileContent = `import {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiPostgresql,
-  SiReact,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPython,
-  SiFastapi,
-  SiJavascript,
-  SiTypescript,
-  SiBootstrap,
-  SiDocker,
-  SiCloudflare,
-  SiGit,
-  SiGithub
-} from "react-icons/si";
-import { RiRobot2Line } from "react-icons/ri";
+    // Collect all unique tech icons used across all experiences
+    const allExpTechIcons = new Set<string>();
+    experiences.forEach((exp: {
+      title: string;
+      company: string;
+      location: string;
+      period: string;
+      description: string;
+      technologies: string;
+      selectedTechs: string[];
+    }) => {
+      exp.selectedTechs.forEach((tech: string) => {
+        allExpTechIcons.add(tech);
+      });
+    });
 
-export const experiences = ${JSON.stringify(transformedExperiences, null, 2)};
+    // Map tech names to icon imports for experiences
+    const expIconMap = new Map<string, string>();
+    allExpTechIcons.forEach((tech: string) => {
+      // Handle special cases
+      if (tech === "shadcn UI") {
+        expIconMap.set(tech, "LuComponent");
+      } else if (tech === "Aceternity UI") {
+        expIconMap.set(tech, "MdAnimation");
+      } else if (tech === "Groq") {
+        expIconMap.set(tech, "RiRobot2Line");
+      } else {
+        // Convert tech name to icon name (e.g., "React" -> "SiReact")
+        // Fix casing issues for common technologies
+        if (tech === "JavaScript") {
+          expIconMap.set(tech, "SiJavascript");
+        } else if (tech === "TypeScript") {
+          expIconMap.set(tech, "SiTypescript");
+        } else if (tech === "PHP") {
+          expIconMap.set(tech, "SiPhp");
+        } else if (tech === "Python") {
+          expIconMap.set(tech, "SiPython");
+        } else {
+          const iconName = `Si${tech.replace(/\./g, "").replace(/\s/g, "")}`;
+          expIconMap.set(tech, iconName);
+        }
+      }
+    });
+
+    // Create the import statements for experiences
+    const expSiImports = Array.from(expIconMap.values())
+      .filter(icon => icon.startsWith("Si"))
+      .sort()
+      .join(",\n  ");
+
+    // Check if we need other imports for experiences
+    const expNeedsRiImport = Array.from(expIconMap.values()).some(icon => icon === "RiRobot2Line");
+    const expNeedsMdImport = Array.from(expIconMap.values()).some(icon => icon === "MdAnimation");
+    const expNeedsLuImport = Array.from(expIconMap.values()).some(icon => icon === "LuComponent");
+
+    // Create the experiences with actual component references
+    const experiencesWithComponents = transformedExperiences.map((exp: {
+      title: string;
+      company: string;
+      location: string;
+      period: string;
+      description: string[];
+      tech: string[];
+    }) => {
+      const techComponents = exp.tech.map((techName: string) => {
+        return expIconMap.get(techName) || "SiNextdotjs"; // Fallback to a common icon
+      });
+
+      return {
+        ...exp,
+        tech: techComponents
+      };
+    });
+
+    // Create the experience.ts file content with proper imports
+    const experienceFileContent = `${expNeedsRiImport ? 'import { RiRobot2Line } from "react-icons/ri";\n' : ''}${expNeedsLuImport ? 'import { LuComponent } from "react-icons/lu";\n' : ''}${expNeedsMdImport ? 'import { MdAnimation } from "react-icons/md";\n' : ''}import {
+  ${expSiImports}
+} from "react-icons/si";
+
+export const experiences = [
+  ${experiencesWithComponents.map((exp: any) => `{
+    title: ${JSON.stringify(exp.title)},
+    company: ${JSON.stringify(exp.company)},
+    location: ${JSON.stringify(exp.location)},
+    period: ${JSON.stringify(exp.period)},
+    description: ${JSON.stringify(exp.description)},
+    tech: [${exp.tech.join(', ')}],
+  }`).join(',\n  ')}
+];
 `;
 
     await fs.writeFile(path.join(tempDir, "src", "data", "experience.ts"), experienceFileContent);
@@ -200,11 +308,10 @@ export const experiences = ${JSON.stringify(transformedExperiences, null, 2)};
       selectedTechs: string[];
     }, index: number) => {
       // Split technologies string into an array and map to icon imports
-      const techArray = project.technologies ? project.technologies.split(",").map((tech: string) => tech.trim()) : [];
-      const techIcons = techArray.map((tech: string) => {
-        // Convert tech name to icon name (e.g., "React" -> "SiReact")
-        return tech.startsWith("Si") ? tech : `Si${tech.replace(/\./g, "").replace(/\s/g, "")}`;
-      });
+      const techArray = project.selectedTechs || [];
+
+      // We need to collect all unique tech icons to ensure they're imported
+      const techIcons = techArray;
 
       // Check if there's an image for this project
       const imageKey = `projectImage-${index}`;
@@ -219,32 +326,92 @@ export const experiences = ${JSON.stringify(transformedExperiences, null, 2)};
       };
     });
 
-    // Create the projects.ts file content
-    const projectsFileContent = `import { RiRobot2Line } from "react-icons/ri";
-import {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiPostgresql,
-  SiFramer,
-  SiOpenai,
-  SiPython,
-  SiFastapi,
-  SiSupabase,
-  SiShadcnui,
-  SiReact,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiJavascript,
-  SiTypescript,
-  SiBootstrap,
-  SiDocker,
-  SiCloudflare,
-  SiGit,
-  SiGithub
+    // Collect all unique tech icons used across all projects
+    const allTechIcons = new Set<string>();
+    projects.forEach((project: {
+      title: string;
+      description: string;
+      technologies: string;
+      url: string;
+      image: File | null;
+      selectedTechs: string[];
+    }) => {
+      project.selectedTechs.forEach((tech: string) => {
+        allTechIcons.add(tech);
+      });
+    });
+
+    // Map tech names to icon imports
+    const techIconMap = new Map<string, string>();
+    allTechIcons.forEach(tech => {
+      // Handle special cases
+      if (tech === "shadcn UI") {
+        techIconMap.set(tech, "SiShadcnui");
+      } else if (tech === "Aceternity UI") {
+        techIconMap.set(tech, "MdAnimation");
+      } else if (tech === "Groq") {
+        techIconMap.set(tech, "RiRobot2Line");
+      } else {
+        // Convert tech name to icon name (e.g., "React" -> "SiReact")
+        // Fix casing issues for common technologies
+        if (tech === "JavaScript") {
+          techIconMap.set(tech, "SiJavascript");
+        } else if (tech === "TypeScript") {
+          techIconMap.set(tech, "SiTypescript");
+        } else if (tech === "PHP") {
+          techIconMap.set(tech, "SiPhp");
+        } else if (tech === "Python") {
+          techIconMap.set(tech, "SiPython");
+        } else {
+          const iconName = `Si${tech.replace(/\./g, "").replace(/\s/g, "")}`;
+          techIconMap.set(tech, iconName);
+        }
+      }
+    });
+
+    // Create the import statements
+    const siImports = Array.from(techIconMap.values())
+      .filter(icon => icon.startsWith("Si"))
+      .sort()
+      .join(",\n  ");
+
+    // Check if we need other imports
+    const needsRiImport = Array.from(techIconMap.values()).some(icon => icon === "RiRobot2Line");
+    const needsMdImport = Array.from(techIconMap.values()).some(icon => icon === "MdAnimation");
+    const needsLuImport = Array.from(techIconMap.values()).some(icon => icon === "LuComponent");
+
+    // Create the projects with actual component references
+    const projectsWithComponents = transformedProjects.map((project: {
+      title: string;
+      url: string;
+      image: string;
+      description: string;
+      tech: string[];
+    }) => {
+      const techComponents = project.tech.map((techName: string) => {
+        return techIconMap.get(techName) || "SiNextdotjs"; // Fallback to a common icon
+      });
+
+      return {
+        ...project,
+        tech: techComponents
+      };
+    });
+
+    // Create the projects.ts file content with proper imports and component references
+    const projectsFileContent = `${needsRiImport ? 'import { RiRobot2Line } from "react-icons/ri";\n' : ''}${needsMdImport ? 'import { MdAnimation } from "react-icons/md";\n' : ''}${needsLuImport ? 'import { LuComponent } from "react-icons/lu";\n' : ''}import {
+  ${siImports}
 } from "react-icons/si";
 
-export const projects = ${JSON.stringify(transformedProjects, null, 2)};
+export const projects = [
+  ${projectsWithComponents.map((project: any) => `{
+    title: ${JSON.stringify(project.title)},
+    url: ${JSON.stringify(project.url)},
+    image: ${JSON.stringify(project.image)},
+    description: ${JSON.stringify(project.description)},
+    tech: [${project.tech.join(', ')}],
+  }`).join(',\n  ')}
+];
 `;
 
     await fs.writeFile(path.join(tempDir, "src", "data", "projects.ts"), projectsFileContent);

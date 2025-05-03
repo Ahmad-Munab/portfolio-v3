@@ -67,11 +67,17 @@ export function ExperienceSection() {
                     ))}
                   </ul>
                   <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-foreground/10">
-                    {experience.tech.map((Icon, i) => (
-                      <div key={i} className="p-1 text-foreground/70">
-                        <Icon className="text-sm" />
-                      </div>
-                    ))}
+                    {experience.tech.map((Icon, i) => {
+                      // Use dynamic component with proper typing
+                      const IconComponent = Icon as React.ComponentType<
+                        React.SVGProps<SVGSVGElement>
+                      >;
+                      return (
+                        <div key={i} className="p-1 text-foreground/70">
+                          <IconComponent className="text-sm" />
+                        </div>
+                      );
+                    })}
                   </div>
                 </motion.div>
               </motion.div>

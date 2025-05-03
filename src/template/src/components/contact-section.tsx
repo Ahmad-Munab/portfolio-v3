@@ -41,28 +41,31 @@ export function ContactSection() {
               </div>
             </motion.div>
 
-            <motion.div
-              className="border border-foreground/10 p-4 rounded-lg"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.2 }}
-              whileHover={{
-                y: -2,
-                borderColor: "rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <FaPhone className="text-lg mb-2" />
-                <h3 className="text-sm font-medium mb-1">Phone</h3>
-                <a
-                  href={`tel:${about.phone}`}
-                  className="text-xs text-foreground/70 hover:underline"
-                >
-                  {about.phone}
-                </a>
-              </div>
-            </motion.div>
+            {/* Phone section - only shown if phone is available */}
+            {"phone" in about && (
+              <motion.div
+                className="border border-foreground/10 p-4 rounded-lg"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                whileHover={{
+                  y: -2,
+                  borderColor: "rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <FaPhone className="text-lg mb-2" />
+                  <h3 className="text-sm font-medium mb-1">Phone</h3>
+                  <a
+                    href={`tel:${(about as any).phone}`}
+                    className="text-xs text-foreground/70 hover:underline"
+                  >
+                    {(about as any).phone}
+                  </a>
+                </div>
+              </motion.div>
+            )}
 
             <motion.div
               className="border border-foreground/10 p-4 rounded-lg"
