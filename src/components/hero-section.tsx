@@ -8,12 +8,6 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Cookie } from "next/font/google";
-
-const CookieFont = Cookie({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export function HeroSection() {
   return (
@@ -42,9 +36,7 @@ export function HeroSection() {
                 />
               </div>
               <div className="text-center my-auto sm:text-left">
-                <h1 className={cn("text-3xl font-bold", CookieFont.className)}>
-                  {about.name}
-                </h1>
+                <h1 className="text-2xl font-bold">{about.name}</h1>
                 <p className="text-sm text-foreground/70">{about.title}</p>
               </div>
               <div className="mt-4 sm:mt-0 sm:ml-auto flex items-center gap-3">
