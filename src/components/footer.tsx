@@ -4,6 +4,7 @@ import {
   FaGithub,
   FaEnvelope,
   FaRegFileCode,
+  FaClone,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -70,6 +71,19 @@ export function Footer() {
               <span className="text-xs font-medium">Resume</span>
             </motion.a>
           </motion.div>
+        </div>
+
+        <div className="flex justify-center mb-4">
+          <Link href="/generate-portfolio">
+            <motion.div
+              className="flex items-center gap-2 px-4 py-2 border border-foreground/10 rounded-lg hover:bg-foreground/5 transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              <FaClone size={14} />
+              <span className="text-sm">Create Your Own Portfolio</span>
+            </motion.div>
+          </Link>
         </div>
 
         <div className="border-t border-foreground/10 pt-4 flex flex-col md:flex-row justify-between items-center">
