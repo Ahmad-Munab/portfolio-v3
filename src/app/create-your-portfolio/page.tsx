@@ -78,14 +78,9 @@ export default function GeneratePortfolioPage() {
               Portfolio
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Choose the path that matches your technical expertise and get
-            started building your dream portfolio
-          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mx-auto">
-          {/* Technical Users Option - Black & White */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,11 +116,11 @@ export default function GeneratePortfolioPage() {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <div className="w-1.5 h-1.5 bg-gray-500 rounded-full" />
-                  <span>Unlimited customization</span>
+                  <span>Self-hosted deployment</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <div className="w-1.5 h-1.5 bg-gray-500 rounded-full" />
-                  <span>Self-hosted deployment</span>
+                  <span>Appreciate if you star ⭐</span>
                 </div>
               </div>
 
@@ -141,7 +136,6 @@ export default function GeneratePortfolioPage() {
             </div>
           </motion.div>
 
-          {/* Non-Technical Users Option - Blue Highlighted */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -152,7 +146,6 @@ export default function GeneratePortfolioPage() {
             <div className="relative bg-gradient-to-br from-black to-blue-950/90 p-6 sm:p-8 rounded-2xl border border-blue-800/30 hover:border-blue-700/50 transition-all duration-500 group-hover:transform group-hover:scale-[1.02] ring-1 ring-blue-900/20">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-blue-900/30 rounded-xl">
-                  {/* X Logo (SVG) */}
                   <svg
                     className="w-6 h-6 text-blue-400"
                     viewBox="0 0 24 24"
@@ -171,21 +164,10 @@ export default function GeneratePortfolioPage() {
                 </div>
               </div>
 
-              <div className="inline-flex items-center gap-2 bg-blue-900/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium mb-4">
-                <svg
-                  className="w-3 h-3"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-                Connect with me
-              </div>
-
               <p className="text-blue-100 mb-6 leading-relaxed">
                 Let me personally guide you through creating your professional
-                portfolio. I&apos;ll provide expert advice and help you showcase your
-                work effectively.
+                portfolio. I&apos;ll provide expert advice and help you showcase
+                your work effectively.
               </p>
 
               <div className="space-y-3 mb-8">
@@ -209,7 +191,7 @@ export default function GeneratePortfolioPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:transform hover:scale-105 shadow-lg shadow-blue-900/25 w-full sm:w-auto justify-center group/btn"
               >
-                {/* X Logo (SVG) */}
+                Reach out on{" "}
                 <svg
                   className="w-4 h-4 group-hover/btn:rotate-12 transition-transform duration-300"
                   viewBox="0 0 24 24"
@@ -217,7 +199,6 @@ export default function GeneratePortfolioPage() {
                 >
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
-                Connect on X
               </a>
             </div>
           </motion.div>
