@@ -43,7 +43,7 @@ export function AboutSection() {
               <div className="border border-foreground/10 p-4 rounded-xl hover:border-foreground/20 transition-colors">
                 <h4 className="text-base font-medium mb-2">Personal</h4>
                 <p className="text-foreground/70 text-sm">
-                  {about.personalBio ||
+                  {about.bio ||
                     "Passionate about building scalable and resilient systems with a focus on great user experiences."}
                 </p>
               </div>
@@ -51,7 +51,7 @@ export function AboutSection() {
               <div className="border border-foreground/10 p-4 rounded-xl hover:border-foreground/20 transition-colors">
                 <h4 className="text-base font-medium mb-2">Professional</h4>
                 <p className="text-foreground/70 text-sm">
-                  {about.professionalBio ||
+                  {about.bio ||
                     "Experienced professional with a strong background in software development."}
                 </p>
               </div>
