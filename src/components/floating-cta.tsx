@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { about } from "@/data/about";
 
@@ -92,7 +91,7 @@ export default function FloatingCTA() {
         className="bg-black/10 backdrop-blur-3xl border border-white/5 rounded-2xl p-6 shadow-2xl shadow-black/20 min-w-[320px]"
       >
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-white font-semibold">Let's Connect!</h3>
+          <h3 className="text-white font-semibold">Let&apos;s Connect!</h3>
         </div>
 
         <div className="space-y-4">

@@ -2,22 +2,19 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { ArrowLeft, Github, Code2 } from "lucide-react";
 import { about } from "@/data/about";
 
 export default function GeneratePortfolioPage() {
-  const [stars, setStars] = useState<
-    {
-      id: number;
-      size: number;
-      left: string;
-      top: string;
-      duration: string;
-      delay: string;
-      opacity: string;
-    }[]
-  >([]);
+  const stars = Array.from({ length: 100 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 2 + 1,
+    left: `${Math.random() * 100}vw`,
+    top: `${Math.random() * 100}vh`,
+    duration: `${Math.random() * 2 + 1}s`,
+    delay: `${Math.random() * 2}s`,
+    opacity: `${Math.random() * 0.5 + 0.5}`,
+  }));
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -187,7 +184,7 @@ export default function GeneratePortfolioPage() {
 
               <p className="text-blue-100 mb-6 leading-relaxed">
                 Let me personally guide you through creating your professional
-                portfolio. I'll provide expert advice and help you showcase your
+                portfolio. I&apos;ll provide expert advice and help you showcase your
                 work effectively.
               </p>
 

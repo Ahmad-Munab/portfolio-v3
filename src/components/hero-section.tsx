@@ -14,7 +14,7 @@ export function HeroSection() {
         transition={{ duration: 0.5 }}
       >
         <div className="relative flex flex-col items-center justify-center min-h-[120px]">
-          <div className="absolute inset-0 -m-0.5">
+          <div className="absolute inset-0">
             <GlowEffect
               colors={["#FF5733", "#33FF57", "#3357FF", "#F1C40F"]}
               mode="colorShift"
