@@ -8,6 +8,7 @@ import { ProjectsSection } from "@/components/projects-section";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { useEffect, useState } from "react";
+import FloatingCTA from "@/components/floating-cta";
 
 export default function Home() {
   const [stars, setStars] = useState<
@@ -91,7 +92,7 @@ export default function Home() {
 
       {/* Navbar - appears when scrolling past hero section */}
       <Navbar />
-
+      <FloatingCTA />
       <main className="lg:py-32 sm:py-24 py-12 lg:space-y-28 sm:space-y-24 space-y-16">
         <section id="home">
           <HeroSection />

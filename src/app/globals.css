@@ -147,23 +147,20 @@
 @keyframes twinkle {
   0% {
     opacity: 0;
-    transform: translateY(0) translateX(0);
-  }
-  25% {
-    opacity: var(--opacity);
+    transform: translateZ(0) scale(1);
   }
   50% {
-    opacity: var(--opacity);
-    transform: translateY(calc(var(--distance) * 0.5)) translateX(calc(var(--distance) * 0.2));
-  }
-  75% {
-    opacity: var(--opacity);
-    transform: translateY(var(--distance)) translateX(calc(var(--distance) * 0.3));
+    opacity: 1;
+    transform: translateZ(50px) scale(1.2);
   }
   100% {
     opacity: 0;
-    transform: translateY(calc(var(--distance) * 1.2)) translateX(calc(var(--distance) * 0.5));
+    transform: translateZ(0) scale(1);
   }
+}
+
+.animate-twinkle {
+  animation: twinkle var(--duration, 5s) linear var(--delay, 0s) infinite;
 }
 
 /* Skill icon hover effect */

@@ -1,7 +1,6 @@
 import { about } from "@/data/about";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const inconsolota = Raleway({
@@ -20,10 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inconsolota.className} antialiased`}>
-        {children}
-        <Toaster />
-      </body>
+      <body className={`${inconsolota.className} antialiased`}>{children}</body>
     </html>
   );
 }

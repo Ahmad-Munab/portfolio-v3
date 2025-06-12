@@ -87,7 +87,8 @@ export const about = {
   website: "https://munab.vercel.app",
   social: {
     linkedin: "https://www.linkedin.com/in/ahmad-munab/",
-    github: "https://github.com/ahmad-munab"
+    github: "https://github.com/ahmad-munab",
+    x: "https://x.com/ahmadmunab"
   },
   bio: "I'm a Software Engineer passionate about building scalable and resilient systems. With 2+ years of experience across the JavaScript and Python ecosystem, I've contributed to high-impact projects at AdmitPath, Minitzgo, Pranerbangla.com, and more. I thrive on designing great user experiences and am deeply passionate about AI and ML."
 };

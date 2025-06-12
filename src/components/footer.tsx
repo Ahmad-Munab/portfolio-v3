@@ -4,7 +4,6 @@ import {
   FaGithub,
   FaEnvelope,
   FaRegFileCode,
-  FaClone,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -53,6 +52,22 @@ export function Footer() {
               <FaLinkedin size={16} />
             </motion.a>
             <motion.a
+              href={about.social.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/80 hover:text-[#3b82f6] transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              <svg
+                className="w-4 h-4 group-hover/btn:rotate-12 transition-transform duration-300"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </motion.a>
+            <motion.a
               href={`mailto:${about.email}`}
               className="rounded-full hover:text-[#3b82f6] transition-colors"
               whileHover={{ y: -2 }}
@@ -60,6 +75,7 @@ export function Footer() {
             >
               <FaEnvelope size={16} />
             </motion.a>
+
             <motion.a
               href="/Resume.pdf"
               download
@@ -71,19 +87,6 @@ export function Footer() {
               <span className="text-xs font-medium">Resume</span>
             </motion.a>
           </motion.div>
-        </div>
-
-        <div className="flex justify-center mb-4">
-          <Link href="/generate-portfolio">
-            <motion.div
-              className="flex items-center gap-2 px-4 py-2 border border-foreground/10 rounded-lg hover:bg-foreground/5 transition-colors"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
-            >
-              <FaClone size={14} />
-              <span className="text-sm">Create Your Own Portfolio</span>
-            </motion.div>
-          </Link>
         </div>
 
         <div className="border-t border-foreground/10 pt-4 flex flex-col md:flex-row justify-between items-center">
