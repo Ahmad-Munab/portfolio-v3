@@ -1,6 +1,7 @@
 {
   "name": "portfolio-v3",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "A modern portfolio website built with Next.js and framer-motion.",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

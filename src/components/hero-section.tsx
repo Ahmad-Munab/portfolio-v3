@@ -14,7 +14,12 @@ export function HeroSection() {
         transition={{ duration: 0.5 }}
       >
         <div className="relative flex flex-col items-center justify-center min-h-[120px]">
-          <div className="absolute inset-0">
+          <motion.div
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 1 }}
+          >
             <GlowEffect
               colors={["#FF5733", "#33FF57", "#3357FF", "#F1C40F"]}
               mode="colorShift"
@@ -22,7 +27,7 @@ export function HeroSection() {
               duration={3}
               scale={1}
             />
-          </div>
+          </motion.div>
           <motion.div
             className="relative border border-foreground/10 rounded-xl p-6 bg-background w-full backdrop-blur-sm"
             initial={{ opacity: 0, scale: 0.95 }}
