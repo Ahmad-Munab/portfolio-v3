@@ -1,6 +1,6 @@
 import { about } from "@/data/about";
 import { motion } from "framer-motion";
-import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export function ContactSection() {
   return (
