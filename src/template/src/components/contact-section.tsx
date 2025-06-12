@@ -58,10 +58,10 @@ export function ContactSection() {
                   <FaPhone className="text-lg mb-2" />
                   <h3 className="text-sm font-medium mb-1">Phone</h3>
                   <a
-                    href={`tel:${(about as any).phone}`}
+                    href={`tel:${(about).phone}`}
                     className="text-xs text-foreground/70 hover:underline"
                   >
-                    {(about as any).phone}
+                    {(about).phone}
                   </a>
                 </div>
               </motion.div>

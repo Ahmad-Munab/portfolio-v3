@@ -44,7 +44,10 @@ export function SkillsSection() {
               <div className="flex flex-wrap gap-2">
                 {skillGroup.items.map((skill, index) => {
                   // Get the icon component from our mapping
-                  const IconComponent = iconComponents[skill.icon];
+                  const IconComponent =
+                    iconComponents[
+                      skill.icon as unknown as keyof typeof iconComponents
+                    ];
 
                   return (
                     <motion.div

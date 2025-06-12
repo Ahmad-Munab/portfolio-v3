@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  FaGithub,
   FaTwitter,
   FaFacebook,
   FaLinkedin,
@@ -206,18 +205,18 @@ git push -u origin main`}
                         and sign up/login
                       </li>
                       <li>
-                        Click "New Project" and import your GitHub repository
+                        Click &quot;New Project&quot; and import your GitHub repository
                       </li>
                       <li>
                         <strong className="text-amber-500">Important:</strong>{" "}
-                        Before deploying, go to "Build and Development Settings"
+                        Before deploying, go to &quot;Build and Development Settings&quot;
                         and override the install command to:
                         <CodeBlock
                           code="npm i --legacy-peer-deps"
                           language="bash"
                         />
                       </li>
-                      <li>Click "Deploy" to start the deployment process</li>
+                      <li>Click &quot;Deploy&quot; to start the deployment process</li>
                     </ol>
                     <p className="text-sm text-muted-foreground mt-2">
                       Your portfolio will be live in minutes with a custom URL!

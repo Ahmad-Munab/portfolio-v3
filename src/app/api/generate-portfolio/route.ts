@@ -6,6 +6,23 @@ import archiver from "archiver";
 import { v4 as uuidv4 } from "uuid";
 import { techIcons } from "@/data/tech-icons";
 
+type exp = {
+      title: string;
+      company: string;
+      location: string;
+      period: string;
+      description: string[];
+      tech: string[];
+    }
+
+type project = {
+      title: string;
+      url: string;
+      image: string;
+      description: string;
+      tech: string[];
+    }
+
 // Helper function to save a file from FormData
 async function saveFormFile(formData: FormData, name: string, uploadDir: string): Promise<string | null> {
   const file = formData.get(name) as File | null;
@@ -260,14 +277,7 @@ export const about = ${JSON.stringify(aboutData, null, 2)};
     const expNeedsLuImport = Array.from(expIconMap.values()).some(icon => icon === "LuComponent");
 
     // Create the experiences with actual component references
-    const experiencesWithComponents = transformedExperiences.map((exp: {
-      title: string;
-      company: string;
-      location: string;
-      period: string;
-      description: string[];
-      tech: string[];
-    }) => {
+    const experiencesWithComponents = transformedExperiences.map((exp: exp) => {
       const techComponents = exp.tech.map((techName: string) => {
         return expIconMap.get(techName) || "SiNextdotjs"; // Fallback to a common icon
       });
@@ -284,7 +294,7 @@ export const about = ${JSON.stringify(aboutData, null, 2)};
 } from "react-icons/si";
 
 export const experiences = [
-  ${experiencesWithComponents.map((exp: any) => `{
+  ${experiencesWithComponents.map((exp: exp) => `{
     title: ${JSON.stringify(exp.title)},
     company: ${JSON.stringify(exp.company)},
     location: ${JSON.stringify(exp.location)},
@@ -381,13 +391,7 @@ export const experiences = [
     const needsLuImport = Array.from(techIconMap.values()).some(icon => icon === "LuComponent");
 
     // Create the projects with actual component references
-    const projectsWithComponents = transformedProjects.map((project: {
-      title: string;
-      url: string;
-      image: string;
-      description: string;
-      tech: string[];
-    }) => {
+    const projectsWithComponents = transformedProjects.map((project: project) => {
       const techComponents = project.tech.map((techName: string) => {
         return techIconMap.get(techName) || "SiNextdotjs"; // Fallback to a common icon
       });
@@ -404,7 +408,7 @@ export const experiences = [
 } from "react-icons/si";
 
 export const projects = [
-  ${projectsWithComponents.map((project: any) => `{
+  ${projectsWithComponents.map((project: project) => `{
     title: ${JSON.stringify(project.title)},
     url: ${JSON.stringify(project.url)},
     image: ${JSON.stringify(project.image)},

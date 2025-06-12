@@ -27,6 +27,7 @@ import { motion } from "framer-motion";
 import { FaPlus, FaTrash, FaDownload } from "react-icons/fa";
 import { TechSelector } from "@/components/tech-selector";
 import { techIcons } from "@/data/tech-icons";
+import Image from "next/image";
 
 // Define the complete form values type
 type FormValues = {
@@ -651,7 +652,7 @@ export function GeneratePortfolioForm() {
                         />
                       </FormControl>
                       <FormDescription>
-                        This will appear in the About section under "Personal".
+                        This will appear in the About section under &quot;Personal&quot;.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -673,7 +674,7 @@ export function GeneratePortfolioForm() {
                       </FormControl>
                       <FormDescription>
                         This will appear in the About section under
-                        "Professional".
+                        &quot;Professional&quot;.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -1231,7 +1232,7 @@ export function GeneratePortfolioForm() {
                         <>
                           <div className="font-medium">Profile Picture:</div>
                           <div>
-                            <img
+                            <Image
                               src={URL.createObjectURL(profilePicture[0])}
                               alt="Profile Preview"
                               className="w-16 h-16 rounded-full object-cover border"
@@ -1329,7 +1330,7 @@ export function GeneratePortfolioForm() {
                       <div className="flex gap-3">
                         {project.image && project.image.length > 0 && (
                           <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
-                            <img
+                            <Image
                               src={URL.createObjectURL(project.image[0])}
                               alt={project.title}
                               className="w-full h-full object-cover"

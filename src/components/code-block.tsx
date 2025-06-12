@@ -9,7 +9,7 @@ interface CodeBlockProps {
   language?: string;
 }
 
-export function CodeBlock({ code, language = "bash" }: CodeBlockProps) {
+export function CodeBlock({ code }: CodeBlockProps) {
   const [copied, setCopied] = React.useState(false);
 
   const copyToClipboard = () => {
