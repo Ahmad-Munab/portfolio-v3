@@ -80,9 +80,8 @@ export const skills = [
 export const about = {
   name: "Ahmad Munab",
   nickName: "Munab",
-  title: "Co-founder @ZenDevz | AI Enthusiast | SaaS Builder",
+  title: "15 y/o Co-founder @ZenDevz | AI Enthusiast | SaaS Builder",
   location: "Dhaka, Bangladesh",
-  phone: "+880 1968450105",
   email: "ahmadmunab22@gmail.com",
   website: "https://munab.vercel.app",
   social: {
@@ -90,5 +89,5 @@ export const about = {
     github: "https://github.com/ahmad-munab",
     x: "https://x.com/ahmadmunab"
   },
-  bio: "I'm a Software Engineer passionate about building scalable and resilient systems. With 2+ years of experience across the JavaScript and Python ecosystem, I've contributed to high-impact projects at AdmitPath, Minitzgo, Pranerbangla.com, and more. I thrive on designing great user experiences and am deeply passionate about AI and ML."
+bio: "I'm a 15 year old Software Engineer passionate about building scalable and resilient systems. With 2+ years of experience across the JavaScript and Python ecosystem, I've contributed to high-impact projects at AdmitPath, Minitzgo, Pranerbangla.com, and more. I thrive on designing great user experiences and am deeply passionate about AI and SaaS. #BuildInPublic"
 };
