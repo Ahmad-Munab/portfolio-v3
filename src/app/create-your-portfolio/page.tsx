@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Github, Code2 } from "lucide-react";
+import { about } from "@/data/about";
 
 export default function GeneratePortfolioPage() {
   const [stars, setStars] = useState<
@@ -206,7 +207,7 @@ export default function GeneratePortfolioPage() {
               </div>
 
               <a
-                href="https://x.com/ahmadmunab"
+                href={about.social.x}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:transform hover:scale-105 shadow-lg shadow-blue-900/25 w-full sm:w-auto justify-center group/btn"
