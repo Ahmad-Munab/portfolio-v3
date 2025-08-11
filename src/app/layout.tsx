@@ -19,7 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inconsolota.className} antialiased`}>{children}</body>
+      <body className={`${inconsolota.className} antialiased`}>
+        {children}
+        <script
+          src="https://b360-one.vercel.app/widget.js"
+          data-widget-id="fa5f5528-2f91-440a-895d-7c1e4e53777b"
+          defer
+        ></script>
+      </body>
     </html>
   );
 }
