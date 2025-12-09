@@ -14,6 +14,21 @@ import {
 
 export const projects = [
   {
+    title: "AscendraLabs",
+    url: "https://ascendralabs.com",
+    image: "/project-images/ascendra-labs.png",
+    description: "Building modern solutions with brilliant young minds.",
+    tech: [
+      SiNextdotjs,
+      SiTypescript,
+      SiTailwindcss,
+      SiPython,
+      SiFastapi,
+      SiPostgresql,
+      SiSupabase,
+    ],
+  },
+  {
     title: "AdmitPath",
     url: "https://admit-path.com",
     image: "/project-images/admit-path.png",
@@ -64,13 +79,6 @@ export const projects = [
     image: "/project-images/munab-ai.png",
     description: "AI-powered assistant for developers and content creators",
     tech: [SiNextdotjs, SiTypescript, SiTailwindcss, SiOpenai],
-  },
-  {
-    title: "Munab Portfolio-v2",
-    url: "https://munab-v2.vercel.app",
-    image: "/project-images/portfolio-v2.png",
-    description: "Second iteration with improved design and animations",
-    tech: [SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer],
   },
 
   {

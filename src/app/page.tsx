@@ -9,6 +9,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { useEffect, useState } from "react";
 import FloatingCTA from "@/components/floating-cta";
+import { AscendraCTA } from "@/components/ascendra-cta";
 
 export default function Home() {
   const [stars, setStars] = useState<
@@ -96,6 +97,8 @@ export default function Home() {
       <main className="lg:py-32 sm:py-24 py-12 lg:space-y-28 sm:space-y-24 space-y-16">
         <section id="home">
           <HeroSection />
+          <AscendraCTA />
+
         </section>
         <AboutSection />
         <ExperienceSection />
