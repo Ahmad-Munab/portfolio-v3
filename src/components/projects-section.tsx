@@ -17,7 +17,7 @@ export function ProjectsSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
+          {projects.slice(0, 4).map((project, index) => (
             <motion.a
               key={index}
               href={project.url}
@@ -64,6 +64,19 @@ export function ProjectsSection() {
               </div>
             </motion.a>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-10">
+          <motion.a
+            href="/projects"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25, delay: 0.2 }}
+            className="inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-primary-foreground shadow transition-colors"
+          >
+            View All Projects
+          </motion.a>
         </div>
       </div>
     </section>

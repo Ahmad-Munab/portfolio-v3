@@ -1,6 +1,8 @@
 import { about } from "@/data/about";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,8 +11,17 @@ export function Navbar() {
   const lastScrollY = useRef(0);
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const activeNavRef = useRef<HTMLAnchorElement>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
+    // Only run scroll logic on home page
+    if (!isHome) {
+      setIsVisible(true);
+      setIsScrolled(true);
+      return;
+    }
+
     // Get reference to the hero section
     heroSectionRef.current = document.querySelector("section") as HTMLElement;
 
@@ -82,7 +93,7 @@ export function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeSection]);
+  }, [activeSection, isHome]);
 
   // Scroll to section smoothly
   const scrollToSection = (sectionId: string) => {
@@ -115,59 +126,63 @@ export function Navbar() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className={`fixed top-4 left-4 right-4 md:left-0 md:right-0 z-50 transition-all duration-300 max-w-3xl mx-auto hidden md:block ${
-            isScrolled
+          className={`fixed top-4 left-4 right-4 md:left-0 md:right-0 z-50 transition-all duration-300 max-w-3xl mx-auto hidden md:block ${isScrolled
               ? "bg-background/70 backdrop-blur-md shadow-md px-4 py-3 rounded-xl border border-foreground/5"
               : "bg-transparent py-5"
-          }`}
+            }`}
         >
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <motion.a
-              href="#home"
+            <Link
+              href="/"
               onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("home");
+                if (isHome) {
+                  e.preventDefault();
+                  scrollToSection("home");
+                }
               }}
               className="text-2xl font-bold flex items-center"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
-              {about.name}
-              <span className="text-[#3b82f6]">.</span>
-            </motion.a>
+              <motion.span
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center"
+              >
+                {about.name}
+                <span className="text-[#3b82f6]">.</span>
+              </motion.span>
+            </Link>
 
             {/* Navigation */}
             <nav className="flex items-center space-x-6">
               {navLinks.map((link) => (
-                <motion.a
+                <Link
                   key={link.name}
-                  href={link.href}
-                  ref={
-                    activeSection === link.href.substring(1)
-                      ? activeNavRef
-                      : null
-                  }
+                  href={isHome ? link.href : `/${link.href}`}
                   onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href.substring(1));
+                    if (isHome) {
+                      e.preventDefault();
+                      scrollToSection(link.href.substring(1));
+                    }
                   }}
-                  className={`relative px-2 py-1 ${
-                    activeSection === link.href.substring(1)
+                  className={`relative px-2 py-1 ${activeSection === link.href.substring(1) && isHome
                       ? "text-[#3b82f6] font-medium"
                       : "text-foreground/80 hover:text-[#3b82f6]"
-                  } transition-colors`}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
+                    } transition-colors`}
                 >
-                  {link.name}
-                  {activeSection === link.href.substring(1) && (
+                  <motion.span
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    {link.name}
+                  </motion.span>
+                  {activeSection === link.href.substring(1) && isHome && (
                     <motion.span
                       className="absolute bottom-0 left-0 w-full h-0.5 bg-[#3b82f6] rounded-full"
                       layoutId="navIndicator"
                     />
                   )}
-                </motion.a>
+                </Link>
               ))}
             </nav>
           </div>

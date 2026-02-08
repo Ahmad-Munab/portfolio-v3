@@ -14,19 +14,11 @@ import {
 
 export const projects = [
   {
-    title: "AscendraLabs",
-    url: "https://ascendralabs.com",
-    image: "/project-images/ascendra-labs.png",
-    description: "Building modern solutions with brilliant young minds.",
-    tech: [
-      SiNextdotjs,
-      SiTypescript,
-      SiTailwindcss,
-      SiPython,
-      SiFastapi,
-      SiPostgresql,
-      SiSupabase,
-    ],
+    title: "ACS Future School",
+    url: "https://acsfutureschool.com",
+    image: "/project-images/acs-affiliation.png",
+    description: "Official website for ACS Future School, offering modern education solutions.",
+    tech: [SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer],
   },
   {
     title: "AdmitPath",
@@ -49,6 +41,42 @@ export const projects = [
     image: "/project-images/preparify.png",
     description: "AI Powered Mock Interview Prepearation Platform for the big4",
     tech: [SiNextdotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiOpenai],
+  },
+  {
+    title: "Abida Purvin",
+    url: "https://abida-purvin-chowdhury.vercel.app",
+    image: "/project-images/abida-purvin-portfolio.png",
+    description: "Portfolio website for the legendary singer Abida Parveen.",
+    tech: [SiNextdotjs, SiTailwindcss],
+  },
+  {
+    title: "SuperTodo",
+    url: "https://supertodo.ascendralabs.com/",
+    image: "/project-images/supertodo.png",
+    description: "A feature-rich todo application for productivity.",
+    tech: [SiNextdotjs, SiTypescript, SiTailwindcss],
+  },
+  {
+    title: "B360",
+    url: "https://b360-one.vercel.app/",
+    image: "/project-images/b360.png",
+    description: "Customer support and IT solutions",
+    tech: [SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer],
+  },
+  {
+    title: "AscendraLabs",
+    url: "https://ascendralabs.com",
+    image: "/project-images/ascendra-labs.png",
+    description: "Building modern solutions with brilliant young minds.",
+    tech: [
+      SiNextdotjs,
+      SiTypescript,
+      SiTailwindcss,
+      SiPython,
+      SiFastapi,
+      SiPostgresql,
+      SiSupabase,
+    ],
   },
   {
     title: "ProjectMate",
@@ -82,10 +110,53 @@ export const projects = [
   },
 
   {
-    title: "B360",
-    url: "https://b360-one.vercel.app/",
-    image: "/project-images/b360.png",
-    description: "Customer support and IT solutions",
-    tech: [SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer],
+    title: "2 Cents Podcast",
+    url: "https://2centspodcast-demo.ascendralabs.com/",
+    image: "/project-images/2-cents-podcast-portfolio.png",
+    description: "Portfolio site for a popular podcast series.",
+    tech: [SiNextdotjs, SiTypescript, SiTailwindcss],
   },
+  {
+    title: "BikroyBot",
+    url: "https://bikroybot.vercel.app/",
+    image: "/project-images/bikroybot.png",
+    description: "Automated bot for Bikroy.com marketplace.",
+    tech: [SiPython, SiTypescript],
+  },
+  {
+    title: "Clipping Path",
+    url: "https://clippath-one.vercel.app/",
+    image: "/project-images/clipping-path.png",
+    description: "Image editing service provider website.",
+    tech: [SiNextdotjs, SiTailwindcss],
+  },
+  {
+    title: "HD Real Estate",
+    url: "https://hd-real-estate-portfolio.vercel.app/",
+    image: "/project-images/hd-real-estate-portfolio.png",
+    description: "Real estate portfolio showcasing premium properties.",
+    tech: [SiNextdotjs, SiTypescript, SiTailwindcss],
+  },
+  {
+    title: "Ramadan Times",
+    url: "https://ramadan-times.netlify.app/",
+    image: "/project-images/ramadan-times.png",
+    description: "Application for tracking Ramadan timings and schedules.",
+    tech: [SiNextdotjs, SiTypescript],
+  },
+
+  {
+    title: "TUDC",
+    url: "https://tudc.vercel.app/",
+    image: "/project-images/tudc.png",
+    description: "University debate club website.",
+    tech: [SiNextdotjs, SiTypescript],
+  },
+  {
+    title: "Portfolio V2",
+    url: "https://portfolio-v2-one.vercel.app/",
+    image: "/project-images/portfolio-v2.png",
+    description: "Portfolio website for the legendary singer Abida Parveen.",
+    tech: [SiNextdotjs, SiTailwindcss],
+  }
 ];
