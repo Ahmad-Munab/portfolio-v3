@@ -26,7 +26,7 @@ export default function ProjectsPage() {
                     </Link>
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">All Projects</h1>
                     <p className="text-lg text-muted-foreground max-w-2xl">
-                        A collection of projects I've worked on, ranging from web applications to AI tools and more.
+                        A collection of projects I&apos;ve worked on, ranging from web applications to AI tools and more.
                     </p>
                 </motion.div>
 

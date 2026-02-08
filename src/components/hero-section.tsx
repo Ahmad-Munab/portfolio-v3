@@ -37,11 +37,11 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <div className="rounded-full overflow-hidden w-16 h-16">
                 <Image
-                  src="/Picture.jpg"
+                  src="/Picture.png"
                   alt="Profile Picture"
                   className="w-full h-full object-cover"
-                  width={64}
-                  height={64}
+                  width={128}
+                  height={128}
                 />
               </div>
               <div className="text-center my-auto sm:text-left">

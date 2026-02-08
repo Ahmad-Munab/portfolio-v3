@@ -10,7 +10,6 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const lastScrollY = useRef(0);
   const heroSectionRef = useRef<HTMLElement | null>(null);
-  const activeNavRef = useRef<HTMLAnchorElement>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -127,8 +126,8 @@ export function Navbar() {
           exit={{ y: -50, opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className={`fixed top-4 left-4 right-4 md:left-0 md:right-0 z-50 transition-all duration-300 max-w-3xl mx-auto hidden md:block ${isScrolled
-              ? "bg-background/70 backdrop-blur-md shadow-md px-4 py-3 rounded-xl border border-foreground/5"
-              : "bg-transparent py-5"
+            ? "bg-background/70 backdrop-blur-md shadow-md px-4 py-3 rounded-xl border border-foreground/5"
+            : "bg-transparent py-5"
             }`}
         >
           <div className="flex items-center justify-between">
@@ -166,8 +165,8 @@ export function Navbar() {
                     }
                   }}
                   className={`relative px-2 py-1 ${activeSection === link.href.substring(1) && isHome
-                      ? "text-[#3b82f6] font-medium"
-                      : "text-foreground/80 hover:text-[#3b82f6]"
+                    ? "text-[#3b82f6] font-medium"
+                    : "text-foreground/80 hover:text-[#3b82f6]"
                     } transition-colors`}
                 >
                   <motion.span
