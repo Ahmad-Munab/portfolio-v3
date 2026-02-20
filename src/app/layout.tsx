@@ -1,6 +1,7 @@
 import { about } from "@/data/about";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 const raleway = Raleway({
@@ -136,6 +137,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${raleway.className} antialiased`}>
+        <Analytics />
         {children}
       </body>
     </html>
